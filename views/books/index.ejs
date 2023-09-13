@@ -1,0 +1,27 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/nav.ejs') %>
+<div class="content">
+<h3 class="lead content-lead">Books</h3>
+<% if(books.length) {%>
+<ul class="list-group">
+<% books.forEach((item) => { %>
+<li class="list-group-item">
+<div class="book">
+<img src="<%= item.photo ? item.photo : "https://placehold.co/100x100" %>" />
+<% // todo: this uses a slug that I'll be deprecating very meow %>
+<p class="book"><a href="/books/<%= item.slug ? `${item.slug}?slug=1` : item.id %>"><%= item.name %></a> <span class="book-author"><%= item.author %></span></p>
+<div class="book-actions">
+<form action="/books/<%= item.id %>?_method=DELETE" method="POST">
+<button type="submit">X</button>
+</form>
+<a href="/books/<%= item.id %>/edit"><button class="edit">✏️</button></a>
+</div>
+</div>
+</li>
+<% }) %>
+</ul>
+<% } else { %>
+<p>No Books found.</p>
+<% } %>
+</div>
+<%- include('../partials/footer.ejs') %>

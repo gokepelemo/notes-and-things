@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+  --primary: #B21854;
+  --primary-2: #CD553B;
+  --secondary: #317EC4;
+  --secondary-2: #1C4790;
+}
+
+@media (max-width: 992px) {
+  .title,.tagline {
+    text-align: center;
+  }
+  .trending-item,.book {
+    text-align: center;
+  }
+  .trending-item img,.book img {
+    text-align: center;
+    margin: 1rem auto;
+    display: block;
+  }
+  .content-lead {
+    text-align: center;
+  }
+}
+
+body {
+  padding: 50px;
+  font: 16px "JetBrains Mono", Arial, sans-serif;
+}
+
+a {
+  color: var(--primary);
+}
+
+footer {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.tagline {
+  font-size: 1.25rem;
+}
+
+.book {
+  font-size: 1.5rem;
+}
+
+.book-author {
+  display: block;
+  font-size: 1rem;
+}
+
+.book-author:before {
+  content: 'by '
+}
+
+.trending-item,.book {
+  padding: 1rem;
+}
+
+.trending-item p,.book p {
+  display: inline-block;
+  padding: 1rem;
+}
+
+.trending-item img,.book img {
+  width: 100px;
+  border: 1px solid var(--primary);
+}
+
+.content {
+  margin: 4rem 2rem;
+}
+
+.heart {
+  font-size: 1.2rem;
+  color: var(--primary-2);
+  margin: 0;
+}
+
+.content-lead {
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 1.5rem 0;
+}
+
+.nav-icon {
+  margin: 0 0.5rem 0 2rem
+}
+
+.nav-icon span:hover {
+  color: var(--primary-2)
+}
+
+.toggler {
+  margin: 0 1rem;
+}
+
+.navbar {
+  margin: 3vmin 0 0 0;
+}
+
+.navbar-nav {
+  margin: 0 0.5rem 0 1rem
+}
+
+.navbar-nav li {
+  margin: 0 1rem;
+}
+
+.site-logo {
+  color: var(--primary);
+  margin: 0 1.5rem 0 0;
+}
+
+a.title {
+  text-decoration: none;
+  color: black;
+}
