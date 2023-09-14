@@ -3,7 +3,7 @@
 <div class="content">
 <h3 class="lead content-lead"><%= title %></h3>
 <ul>
-<% note.forEach(item => { %>
+<% note.forEach((item) => { %>
 <li>
 <a href="/notes/<%= item.id %>"><%= item.title %></a>
 <form method="POST" action="/notes/<%= item.id %>?_method=DELETE" class="frm-action">

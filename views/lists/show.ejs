@@ -9,7 +9,7 @@
       <h3 class="lead content-lead"><%= list.name %></h3>
     </div>
   </div>
-  <div class="row">
+  <div class="row book-list">
     <div class="col">
       <% if (list.books.length) {%>
       <ul class="nav nav-pills nav-list">
@@ -53,13 +53,14 @@
             </div>
           </div>
           <p class="mb-1 book-author"><%= item.author %></p>
-          <div>3 notes, etc.</div>
+          <p class="mb-1"></p>
         </a>
         <% }) %>
       </div>
     </div>
     <% } else { %>
     <p>There are no books in this list.</p>
+    <a href="/lists/<%= list.id %>/edit"><button class="btn btn-primary">Add Books</button></a>
     <% } %>
   </div>
   <a href="/lists" class="app-footer-link">

@@ -13,7 +13,7 @@ async function show(req, res, next) {
     let vote = await Vote.find({list: list.id}).populate('book');
     let note = await Note.find({list: list.id}).populate('book');
     res.render("lists/show", {
-      site: Defaults,
+      app: Defaults,
       title: list.name,
       list: list,
       vote: vote,
@@ -28,7 +28,7 @@ async function index(req, res, next) {
   try {
     let list = await List.find({});
     res.render("lists/index", {
-      site: Defaults,
+      app: Defaults,
       title: `All Lists`,
       list: list,
     });
@@ -40,7 +40,7 @@ async function index(req, res, next) {
 async function create(req, res, next) {
   try {
     let list = await List.create(req.body);
-    res.redirect(`/lists/${list.id}`);
+    res.redirect(`/lists/${list.id}/edit`);
   } catch (err) {
     console.error(err);
   }
@@ -69,7 +69,7 @@ async function deleteList(req, res, next) {
 }
 
 function newList(req, res, next) {
-  res.render("lists/new", { site: Defaults, title: `New List` });
+  res.render("lists/new", { app: Defaults, title: `New List` });
 }
 
 async function editList(req, res, next) {
@@ -77,7 +77,7 @@ async function editList(req, res, next) {
     let list = await List.findById(req.params.id).populate('books');
     let books = await Book.find({});
     res.render("lists/edit", {
-      site: Defaults,
+      app: Defaults,
       title: `Edit ${list.name}`,
       list: list,
       books: books,

@@ -27,14 +27,14 @@ async function show(req, res, next) {
         Link: `<${req.protocol}://${req.headers.host}/books/${book.id}>; rel="canonical"`,
       });
       res.render("books/show", {
-        site: Defaults,
+        app: Defaults,
         title: book.name,
         book: book,
       });
     } else {
       res.render("books/show", {
-        site: Defaults,
-        title: `Book Details`,
+        app: Defaults,
+        title: book.name,
         book: book,
       });
     }
@@ -49,7 +49,7 @@ async function index(req, res, next) {
     const books = await Book.find({});
     res.render("books/index", {
       title: `All Books`,
-      site: Defaults,
+      app: Defaults,
       books: books,
     });
   } catch (err) {
@@ -106,7 +106,7 @@ async function deleteBook(req, res, next) {
 function newBook(req, res, next) {
   res.render("books/new", {
     title: `Add a Book`,
-    site: Defaults,
+    app: Defaults,
   });
 }
 
@@ -115,7 +115,7 @@ async function editBook(req, res, next) {
     let book = await Book.findById(req.params.id);
     res.render("books/edit", {
       title: `Edit ${book.name}`,
-      site: Defaults,
+      app: Defaults,
       book: book,
     });
   } catch (err) {
