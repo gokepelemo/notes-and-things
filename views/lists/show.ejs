@@ -1,0 +1,67 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/nav.ejs') %>
+<div class="content">
+  <div class="row">
+    <div class="col">
+      <% if(list.photo) { %>
+      <img src="<%= list.photo %>" class="img-list" />
+      <% } %>
+      <h3 class="lead content-lead"><%= list.name %></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <% if (list.books.length) {%>
+      <ul class="nav nav-pills nav-list">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">To Read</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Recently Read</a>
+        </li>
+      </ul>
+      <div class="list-group">
+        <% let bookVotes={};
+           let notes={};
+            vote.forEach((vote) => {
+              if (!bookVotes[vote.book.id]) bookVotes[vote.book.id] = 0
+              bookVotes[vote.book.id] += 1
+            });
+            note.forEach((note) => {
+              if (!notes[note.book.id]) notes[note.book.id] = 0
+              notes[note.book.id] += 1
+            }) 
+        %>
+        <% list.books.forEach((item) => {%>
+        <a href="/books/<%= item.slug %>" class="list-group-item list-group-item-action book-list-item" aria-current="true">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><%= item.name %></h5>
+            <div class="action-buttons">
+              <% if(user) {
+              %>
+              <form method="POST" action="/books/<%= item.id %>/votes" class="frm-action">
+                <input type="hidden" name="user" value=<%= user.id %> />
+                <input type="hidden" name="list" value=<%= list.id %> />
+                <button type="submit" class="btn btn-light btn-action"><%= bookVotes[item.id] ? bookVotes[item.id] : 0 %><span class="fas fa-star"></span></button>
+              </form>
+              <form action="/books/<%= item.id %>/notes/new" method="GET" class="frm-action">
+              <input name="list" type="hidden" value="<%= list.id %>" />
+                <button type="submit" class="btn btn-light btn-action"><%= notes[item.id] ? notes[item.id] : 0 %><span class="fa-solid fa-note-sticky"></span></button>
+              </form>
+              <% } %>
+            </div>
+          </div>
+          <p class="mb-1 book-author"><%= item.author %></p>
+          <div>3 notes, etc.</div>
+        </a>
+        <% }) %>
+      </div>
+    </div>
+    <% } else { %>
+    <p>There are no books in this list.</p>
+    <% } %>
+  </div>
+  <a href="/lists" class="app-footer-link">
+
+    < Back to Lists</a>
+      <%- include('../partials/footer.ejs') %>

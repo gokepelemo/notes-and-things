@@ -3,12 +3,12 @@ const router = express.Router();
 const booksCtrl = require('../controllers/books');
 const ensureLoggedIn = require('../config/ensureLoggedIn');
 
-router.get('/', booksCtrl.index);
-router.post('/', ensureLoggedIn, booksCtrl.create);
-router.get('/new', ensureLoggedIn, booksCtrl.new);
-router.get('/:id', booksCtrl.show);
-router.put('/:id', ensureLoggedIn, booksCtrl.update)
-router.get('/:id/edit', booksCtrl.edit);
-router.delete('/:id', ensureLoggedIn, booksCtrl.delete);
+router.get('/books/', booksCtrl.index);
+router.post('/books/', ensureLoggedIn, booksCtrl.create);
+router.get('/books/new', ensureLoggedIn, booksCtrl.new);
+router.get('/books/:id', booksCtrl.show);
+router.put('/books/:id', ensureLoggedIn, booksCtrl.update)
+router.get('/books/:id/edit', booksCtrl.edit);
+router.delete('/books/:id', ensureLoggedIn, booksCtrl.delete);
 
 module.exports = router;

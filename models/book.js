@@ -20,12 +20,6 @@ const bookSchema = new Schema(
     slug: {
       type: String,
     },
-    votes: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Vote",
-      },
-    ],
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",

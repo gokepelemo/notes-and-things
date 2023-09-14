@@ -13,7 +13,6 @@ const noteSchema = new Schema({
     book: {
         type: Schema.Types.ObjectId,
         ref: 'Book',
-        required: true
     },
     list: {
         type: Schema.Types.ObjectId,

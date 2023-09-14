@@ -1,0 +1,32 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/nav.ejs') %>
+<div class="content">
+<h3 class="lead content-lead"><%= `Edit - ${list.name}` %></h3>
+<% if (user) {%>
+<div class="form-group">
+<form method="POST" action="/lists/<%= list.id %>?_method=PUT">
+<input type="hidden" value="<%= user.id %>" name="user" />
+<label for="name">List Name</label>
+<input type="text" name="name" value="<%= list.name %>" class="form-control" />
+<label for="books-added">Books in the List</label>
+<ul name="books-added">
+<% list.books.forEach((item) => { %>
+<li><%= item.name %></li>
+<% }) %>
+</ul>
+<label for="books">Add a Book</label>
+<select name="books" class="form-control">
+<% books.forEach((item) => {%>
+<option value="<%= item.id %>"><%= item.name %></option>
+<% }) %>
+</select>
+<label for="photo">Image URL</label>
+<input type="text" name="photo" value="<%= list.photo %>" class="form-control" />
+<button type="submit" class="btn btn-primary">Update List</button>
+</form>
+</div>
+<% } else {%>
+<p class="logged-out">You need to be logged in to edit this list.</p>
+<% } %>
+<a href="/lists/<%= list.id %>" class="app-footer-link">< Back to List</a>
+<%- include('../partials/footer.ejs') %>

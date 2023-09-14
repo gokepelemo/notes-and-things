@@ -3,8 +3,8 @@ const router = express.Router();
 const votesCtrl = require('../controllers/votes')
 const ensureLoggedIn = require('../config/ensureLoggedIn');
 
-router.get('/', votesCtrl.index);
-router.post('/:id/edit', votesCtrl.create);
-router.delete('/:id', votesCtrl.delete);
+router.post('/books/:bookId/votes', ensureLoggedIn, votesCtrl.create);
+router.post('/notes/:noteId/votes', ensureLoggedIn, votesCtrl.create);
+router.delete('/votes/:id', ensureLoggedIn, votesCtrl.delete);
 
 module.exports = router;

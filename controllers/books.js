@@ -6,7 +6,7 @@ const Defaults = require("../models/defaults");
 
 function generateSlug(txt) {
   txt = txt.toLowerCase().split(" ");
-  const articles = ["a", "an", "the"];
+  const articles = ["a", "an", "the", "of"];
   articles.forEach((item) => {
     if (txt.indexOf(item) !== -1) txt.splice(txt.indexOf(item), 1);
   });
@@ -15,18 +15,13 @@ function generateSlug(txt) {
 }
 
 async function show(req, res, next) {
-  const options = {
-    headers: {
-      "x-timestamp": Date.now(),
-    },
-  };
   try {
     let book = (await Book.findOne({ slug: req.params.id }))
       ? await Book.findOne({ slug: req.params.id })
       : await Book.findById(req.params.id);
     if (book.slug) {
       res.set({
-        Link: `<http://${req.headers.host}/books/${book.id}>; rel="canonical"`,
+        Link: `<${req.protocol}://${req.headers.host}/books/${book.id}>; rel="canonical"`,
       });
       res.render("books/show", {
         site: Defaults,
@@ -110,7 +105,6 @@ function newBook(req, res, next) {
 async function editBook(req, res, next) {
   try {
     let book = await Book.findById(req.params.id);
-    console.log(book);
     res.render("books/edit", {
       title: `Edit a Book`,
       site: Defaults,

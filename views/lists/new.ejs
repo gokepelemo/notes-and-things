@@ -1,0 +1,15 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/nav.ejs') %>
+<div class="content">
+<h3 class="lead content-lead"><%= title %></h3>
+<div class="form-group">
+<form method="POST" action="/lists">
+<input type="hidden" value="<%= user.id %>" name="user" />
+<label for="list-name">List Name</label>
+<input type="text" name="name" value="" class="form-control" />
+<label for="list-photo">Image URL</label>
+<input type="text" name="photo" value="" class="form-control" />
+<button type="submit" class="btn btn-primary">Add Books</button>
+</form>
+</div>
+<%- include('../partials/footer.ejs') %>

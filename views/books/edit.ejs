@@ -1,24 +1,24 @@
 <%- include('../partials/header.ejs') %>
 <%- include('../partials/nav.ejs') %>
 <div class="content">
-<% if (user) {%>
-<h3 class="lead content-lead"><%= title %></h3>
-<div class="form-group">
-<form method="POST" action="/books/<%= book.id %>?_method=PUT">
-<input type="hidden" value="<%= user.id %>" name="user" />
-<label for="book-name">Book Name</label>
-<input type="text" name="name" value="<%= book.name %>" class="form-control" />
-<label for="book-name">Book Author</label>
-<input type="text" name="author" value="<%= book.author %>" class="form-control" />
-<label for="book-image">Image URL</label>
-<input type="text" name="photo" value="<%= book.photo %>" class="form-control" />
-<label for="book-image">ISBN</label>
-<input type="text" name="isbn" class="form-control" />
-<button type="submit" class="btn btn-primary">Update Book</button>
-</form>
-</div>
-<% } else {%>
-<p class="logged-out">You need to be logged in to edit this book.</p>
-<% } %>
+  <% if (user) {%>
+  <h3 class="lead content-lead"><%= title %></h3>
+  <div class="form-group">
+    <form method="POST" action="/books/<%= book.id %>?_method=PUT">
+      <input type="hidden" value="<%= user.id %>" name="user" />
+      <label for="book-name">Book Name</label>
+      <input type="text" name="name" value="<%= book.name %>" class="form-control" />
+      <label for="book-name">Book Author</label>
+      <input type="text" name="author" value="<%= book.author %>" class="form-control" />
+      <label for="book-image">Image URL</label>
+      <input type="text" name="photo" value="<%= book.photo %>" class="form-control" />
+      <label for="book-image">ISBN</label>
+      <input type="text" name="isbn" class="form-control" />
+      <button type="submit" class="btn btn-primary">Update Book</button>
+    </form>
+  </div>
+  <% } else {%>
+  <p class="logged-out">You need to be logged in to edit this book.</p>
+  <% } %>
 </div>
 <%- include('../partials/footer.ejs') %>

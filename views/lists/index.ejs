@@ -3,12 +3,13 @@
 <div class="content">
 <h3 class="lead content-lead"><%= title %></h3>
 <ul>
-<% note.forEach(item => { %>
+<% list.forEach(item => { %>
 <li>
-<a href="/notes/<%= item.id %>"><%= item.title %></a>
-<form method="POST" action="/notes/<%= item.id %>?_method=DELETE" class="frm-action">
+<a href="/lists/<%= item.id %>"><%= item.name %></a>
+<form method="POST" action="/lists/<%= item.id %>?_method=DELETE" class="frm-action">
 <button type="submit" class="btn btn-light btn-action">X</button>
 </form>
+<a href="/lists/<%= item.id %>/edit"><button class="btn btn-light btn-action">✏️</button></a>
 </li>
 <% })%>
 </ul>

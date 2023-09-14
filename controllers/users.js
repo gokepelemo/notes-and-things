@@ -7,14 +7,12 @@ const List = require("../models/list");
 const Defaults = require("../models/defaults")
 
 async function show(req,res,next) {
-    let currentlyReading
+    let currentlyReading, readingList
     try {
         let user = await User.findById(req.params.id);
-        if (user.reading) {
-            currentlyReading = await List.findById(user.reading)
-        }
-        console.log(user);
-        res.render('users/show', {title: `Profile Details`, site: Defaults, user: user, currentBook: currentlyReading})
+        if (user.readingList) readingList = await List.findById(user.readingList)
+        if (user.currentlyReading) currentlyReading = await Book.findById(user.readingList)
+        res.render('users/show', {title: `Profile Details`, site: Defaults, user: user, book: currentlyReading, list: readingList})
     } catch (err) {
         console.error(err)
     }
