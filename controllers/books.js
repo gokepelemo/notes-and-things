@@ -1,3 +1,4 @@
+// todo: improve error handling
 const express = require("express");
 const router = express.Router();
 
@@ -100,7 +101,6 @@ async function deleteBook(req, res, next) {
   } catch (err) {
     console.error(err);
   }
-  return;
 }
 
 function newBook(req, res, next) {
