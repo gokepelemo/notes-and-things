@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Book = require("../models/book");
+const Vote = require("../models/vote");
 const Defaults = require("../models/defaults");
 
 function generateSlug(txt) {
@@ -25,15 +26,13 @@ async function show(req, res, next) {
       });
       res.render("books/show", {
         site: Defaults,
-        title: `Book Details`,
-        loggedIn: ``,
+        title: book.name,
         book: book,
       });
     } else {
       res.render("books/show", {
         site: Defaults,
         title: `Book Details`,
-        loggedIn: ``,
         book: book,
       });
     }
@@ -47,9 +46,8 @@ async function index(req, res, next) {
   try {
     const books = await Book.find({});
     res.render("books/index", {
-      title: `Home`,
+      title: `All Books`,
       site: Defaults,
-      loggedIn: ``,
       books: books,
     });
   } catch (err) {
@@ -86,6 +84,10 @@ async function deleteBook(req, res, next) {
   try {
     if (req.user.role === "admin") {
       let book = await Book.findById(req.params.id);
+      let votes = await Vote.find({book: req.params.id});
+      votes.forEach({
+
+      })
       await Book.findByIdAndDelete(req.params.id);
       res.redirect("/books");
     }
@@ -106,7 +108,7 @@ async function editBook(req, res, next) {
   try {
     let book = await Book.findById(req.params.id);
     res.render("books/edit", {
-      title: `Edit a Book`,
+      title: `Edit ${book.name}`,
       site: Defaults,
       book: book,
     });

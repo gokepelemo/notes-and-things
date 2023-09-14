@@ -24,13 +24,14 @@
         <% let bookVotes={};
            let notes={};
             vote.forEach((vote) => {
-              if (!bookVotes[vote.book.id]) bookVotes[vote.book.id] = 0
-              bookVotes[vote.book.id] += 1
+              let id = vote.book.id
+              if (!bookVotes[id]) bookVotes[id] = 0
+              bookVotes[id] += 1
             });
             note.forEach((note) => {
               if (!notes[note.book.id]) notes[note.book.id] = 0
               notes[note.book.id] += 1
-            }) 
+            });
         %>
         <% list.books.forEach((item) => {%>
         <a href="/books/<%= item.slug %>" class="list-group-item list-group-item-action book-list-item" aria-current="true">

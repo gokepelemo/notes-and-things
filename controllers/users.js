@@ -12,7 +12,7 @@ async function show(req,res,next) {
         let user = await User.findById(req.params.id);
         if (user.readingList) readingList = await List.findById(user.readingList)
         if (user.currentlyReading) currentlyReading = await Book.findById(user.readingList)
-        res.render('users/show', {title: `Profile Details`, site: Defaults, user: user, book: currentlyReading, list: readingList})
+        res.render('users/show', {title: user.name, site: Defaults, user: user, book: currentlyReading, list: readingList})
     } catch (err) {
         console.error(err)
     }
