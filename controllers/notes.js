@@ -4,6 +4,7 @@ const router = express.Router();
 const Defaults = require("../models/defaults");
 const Note = require("../models/note");
 const Book = require("../models/book");
+const Vote = require("../models/vote");
 
 function show(req, res, next) {
   return;
@@ -13,7 +14,7 @@ async function index(req, res, next) {
   try {
     let notes = await Note.find({});
     res.render("notes/index", {
-      site: Defaults,
+      app: Defaults,
       title: `All Notes`,
       note: notes,
     });
@@ -40,6 +41,11 @@ function update(req, res, next) {
 async function deleteNote(req, res, next) {
   try {
     let note = await Note.findByIdAndDelete(req.params.id);
+    let votes = await Vote.find({note: req.params.id });
+    for (let i=0;i<votes.length;i++) {
+      let voteId = votes[i].id;
+      await Vote.findByIdAndDelete(voteId)
+    }
     res.redirect("/notes");
   } catch (err) {
     console.error(err);
@@ -50,7 +56,7 @@ async function newNote(req, res, next) {
   try {
     let book = await Book.findById(req.params.id);
     res.render("notes/new", {
-      site: Defaults,
+      app: Defaults,
       book: book,
       title: `New Note`,
       list: req.query.list,

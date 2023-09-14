@@ -1,0 +1,22 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/nav.ejs') %>
+<div class="content">
+  <% if (user) {%>
+  <h3 class="lead content-lead"><%= title %></h3>
+  <div class="form-group">
+    <form method="POST" action="/users/<%= user.id %>?_method=PUT">
+      <input type="hidden" value="<%= user.id %>" name="user" />
+      <label for="name">Name</label>
+      <input type="text" name="name" value="<%= user.name %>" class="form-control" />
+      <label for="">Email</label>
+      <input type="text" name="email" value="<%= user.email %>" class="form-control" />
+      <label for="photo">Photo</label>
+      <input type="text" name="photo" value="<%= user.photo %>" class="form-control" />
+      <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+  </div>
+  <% } else {%>
+  <p class="logged-out">You need to be logged in to edit this book.</p>
+  <% } %>
+</div>
+<%- include('../partials/footer.ejs') %>

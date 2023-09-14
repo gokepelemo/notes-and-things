@@ -8,7 +8,7 @@ const Defaults = require("../models/defaults");
 
 async function home(req, res, next) {
   let books = await Book.find({});
-  res.render("index", { site: Defaults, books: books, title: `Home` });
+  res.render("index", { app: Defaults, books: books, title: `Home` });
 }
 
 module.exports = {

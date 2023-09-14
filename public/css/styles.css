@@ -18,12 +18,27 @@ form {
   width: 50%;
 }
 
-input,select,textarea {
+.mb-1 {
+  font-size: 2rem;
+  padding: 0.25rem;
+}
+
+p.mb-1 {
+  display: block;
+  font-size: 1.5rem;
+}
+
+.book-author {
+  display: block;
+}
+
+input,select,textarea,.list-edit p {
   margin-bottom: 1.5rem;
 }
 
 label {
   margin-bottom: 0.5rem;
+  font-size: 1.25rem;
 }
 
 footer {
@@ -39,10 +54,6 @@ footer {
   font-size: 1.5rem;
 }
 
-.book-author {
-  display: block;
-  font-size: 1rem;
-}
 
 .book-author:before {
   content: 'by '
@@ -74,8 +85,13 @@ img {
 
 .content-lead {
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 3rem;
   margin: 1.5rem 0;
+  display: inline-block;
+}
+
+.book-list {
+  margin-top: 5vmin;
 }
 
 .new-book {
