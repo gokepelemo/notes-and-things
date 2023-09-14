@@ -5,16 +5,29 @@ const Book = require("../models/book");
 const Defaults = require("../models/defaults");
 
 function generateSlug(txt) {
-  txt = txt.split(" ");
+  txt = txt.toLowerCase().split(" ");
+  const articles = ["a", "an", "the"];
+  articles.forEach((item) => {
+    if (txt.indexOf(item) !== -1) txt.splice(txt.indexOf(item), 1);
+  });
   txt = txt.length > 4 ? txt.slice(0, 4) : txt;
-  return txt.join("-").toLowerCase();
+  return txt.join("-");
 }
 
 async function show(req, res, next) {
+  const options = {
+    headers: {
+      "x-timestamp": Date.now(),
+    },
+  };
   try {
-    // todo: this needs not to use a query string. update the function to find out if a slug was generated.
-    if (req.query.slug) {
-      const book = await Book.findOne({ slug: req.params.id });
+    let book = (await Book.findOne({ slug: req.params.id }))
+      ? await Book.findOne({ slug: req.params.id })
+      : await Book.findById(req.params.id);
+    if (book.slug) {
+      res.set({
+        Link: `<http://${req.headers.host}/books/${book.id}>; rel="canonical"`,
+      });
       res.render("books/show", {
         site: Defaults,
         title: `Book Details`,
@@ -22,7 +35,6 @@ async function show(req, res, next) {
         book: book,
       });
     } else {
-      const book = await Book.findById(req.params.id);
       res.render("books/show", {
         site: Defaults,
         title: `Book Details`,
@@ -36,6 +48,7 @@ async function show(req, res, next) {
 }
 
 async function index(req, res, next) {
+  console.log(req.user)
   try {
     const books = await Book.find({});
     res.render("books/index", {
@@ -51,9 +64,11 @@ async function index(req, res, next) {
 
 async function create(req, res, next) {
   req.body.slug = generateSlug(req.body.name);
+  if (await Book.findOne({ slug: req.body.slug }))
+    req.body.slug += `-${Math.ceil(Math.random() * 50)}`;
   try {
     const newBook = await Book.create(req.body);
-    res.redirect("/");
+    res.redirect(`/books/${newBook.slug}`);
   } catch (err) {
     console.error(err);
   }
@@ -62,8 +77,8 @@ async function create(req, res, next) {
 async function update(req, res, next) {
   try {
     let book = await Book.findById(req.params.id);
-    if (book.user === req.user.id || req.user.role === "admin") {
-      await Book.findByIdAndUpdate(req.params.id, req.body)
+    if (req.user.role === "admin") {
+      await Book.findByIdAndUpdate(req.params.id, req.body);
       res.redirect(`/books/${book.id}`);
     }
   } catch (err) {
@@ -74,8 +89,8 @@ async function update(req, res, next) {
 
 async function deleteBook(req, res, next) {
   try {
-    let book = await Book.findById(req.params.id);
-    if (book.user === req.user.id) {
+    if (req.user.role === "admin") {
+      let book = await Book.findById(req.params.id);
       await Book.findByIdAndDelete(req.params.id);
       res.redirect("/books");
     }
@@ -95,7 +110,7 @@ function newBook(req, res, next) {
 async function editBook(req, res, next) {
   try {
     let book = await Book.findById(req.params.id);
-    console.log(book)
+    console.log(book);
     res.render("books/edit", {
       title: `Edit a Book`,
       site: Defaults,

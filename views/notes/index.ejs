@@ -1,0 +1,15 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/nav.ejs') %>
+<div class="content">
+<h3 class="lead content-lead"><%= title %></h3>
+<ul>
+<% note.forEach(item => { %>
+<li>
+<a href="/notes/<%= item.id %>"><%= item.name %></a>
+<form method="POST" action="/lists/<%= item.id %>?_method=DELETE">
+<button type="submit" class="btn btn-light">X</button>
+</form>
+</li>
+<% })%>
+</ul>
+<%- include('../partials/footer.ejs') %>

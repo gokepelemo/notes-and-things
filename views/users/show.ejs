@@ -1,6 +1,7 @@
 <%- include('../partials/header.ejs') %>
 <%- include('../partials/nav.ejs') %>
 <div class="content">
-<h3 class="lead content-lead"><%= title %></h3>
-<%= user %>
+<img class="profile-photo" src="<%= user.photo %>" />
+<h3 class="lead profile-name"><%= user.name %></h3>
+<a href="/users" class="app-footer-link">< Back to Users</a>
 <%- include('../partials/footer.ejs') %>

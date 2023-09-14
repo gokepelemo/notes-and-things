@@ -1,4 +1,4 @@
 module.exports = function (req, res, next) {
     if(req.isAuthenticated()) return next();
-    res.redirect(`/auth/google?redirect=${req.headers.referer}`);
+    res.redirect(`/auth/google?redirect=${req.originalUrl}`);
 }

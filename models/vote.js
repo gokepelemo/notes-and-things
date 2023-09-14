@@ -6,19 +6,19 @@ const voteSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Book',
     },
-    user: {
+    note: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
+        ref: 'Note',
     },
     list: {
         type: Schema.Types.ObjectId,
         ref: 'List',
     },
-    note: {
+    user: {
         type: Schema.Types.ObjectId,
-        ref: 'Note',
-    }
+        ref: 'User',
+        required: true,
+    },
 }, {
     timestamps: true
 });

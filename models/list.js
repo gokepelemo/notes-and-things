@@ -38,18 +38,26 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const listSchema = new Schema({
-    name: String,
-    photo: String,
+    name: {
+        type: String,
+    },
+    photo: {
+        type: String,
+    },
     books: [{
         type: Schema.Types.ObjectId,
-        ref: 'Book'
+        ref: 'Book',
     }],
-    owner: {
+    booksRead: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Book',
+    }],
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
 }, {
-    timestamps: true
+    timestamps: true,
 })
 
 module.exports = mongoose.model('List', listSchema)

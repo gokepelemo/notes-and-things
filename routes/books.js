@@ -5,7 +5,7 @@ const ensureLoggedIn = require('../config/ensureLoggedIn');
 
 router.get('/', booksCtrl.index);
 router.post('/', ensureLoggedIn, booksCtrl.create);
-router.get('/new', booksCtrl.new);
+router.get('/new', ensureLoggedIn, booksCtrl.new);
 router.get('/:id', booksCtrl.show);
 router.put('/:id', ensureLoggedIn, booksCtrl.update)
 router.get('/:id/edit', booksCtrl.edit);

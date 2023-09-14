@@ -1,27 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
-
 :root {
   --primary: #B21854;
   --primary-2: #CD553B;
   --secondary: #317EC4;
   --secondary-2: #1C4790;
-}
-
-@media (max-width: 992px) {
-  .title,.tagline {
-    text-align: center;
-  }
-  .trending-item,.book {
-    text-align: center;
-  }
-  .trending-item img,.book img {
-    text-align: center;
-    margin: 1rem auto;
-    display: block;
-  }
-  .content-lead {
-    text-align: center;
-  }
 }
 
 body {
@@ -31,6 +12,18 @@ body {
 
 a {
   color: var(--primary);
+}
+
+form {
+  width: 50%;
+}
+
+input {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  margin-bottom: 0.5rem;
 }
 
 footer {
@@ -64,7 +57,7 @@ footer {
   padding: 1rem;
 }
 
-.trending-item img,.book img {
+img {
   width: 100px;
   border: 1px solid var(--primary);
 }
@@ -82,6 +75,10 @@ footer {
 .content-lead {
   font-weight: bold;
   font-size: 2rem;
+  margin: 1.5rem 0;
+}
+
+.new-book {
   margin: 1.5rem 0;
 }
 
@@ -117,4 +114,44 @@ footer {
 a.title {
   text-decoration: none;
   color: black;
+}
+
+.book-content h3, .book-content h4 {
+  display: inline-block;
+}
+
+.btn-action {
+  width: 25px;
+  padding: 1px;
+  display: inline-block;
+}
+
+.frm-action {
+  display: inline-block;
+  width: 25px;
+}
+
+.app-footer-link {
+  display: block;
+  margin: 2rem 0;
+}
+
+@media (max-width: 992px) {
+  .title,.tagline {
+    text-align: center;
+  }
+  .trending-item,.book {
+    text-align: center;
+  }
+  img {
+    text-align: center;
+    margin: 1rem auto;
+    display: block;
+  }
+  .content-lead {
+    text-align: center;
+  }
+  form {
+    width: 100%;
+  }
 }

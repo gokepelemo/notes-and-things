@@ -1,13 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-const User = require("../models/user")
+const User = require("../models/user");
+const Book = require("../models/book");
+const List = require("../models/list");
 const Defaults = require("../models/defaults")
 
 async function show(req,res,next) {
+    let currentlyReading
     try {
         let user = await User.findById(req.params.id);
-        res.render('users/show', {title: `Profile Details`, site: Defaults, user: user})
+        if (user.reading) {
+            currentlyReading = await List.findById(user.reading)
+        }
+        console.log(user);
+        res.render('users/show', {title: `Profile Details`, site: Defaults, user: user, currentBook: currentlyReading})
     } catch (err) {
         console.error(err)
     }
