@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Book = require("../models/book");
 const Vote = require("../models/vote");
+const Note = require("../models/note");
 const Defaults = require("../models/defaults");
 
 function generateSlug(txt) {
@@ -83,11 +84,16 @@ async function update(req, res, next) {
 async function deleteBook(req, res, next) {
   try {
     if (req.user.role === "admin") {
-      let book = await Book.findById(req.params.id);
       let votes = await Vote.find({book: req.params.id});
-      votes.forEach({
-
-      })
+      let notes = await Note.find({book: req.params.id});
+      for (let i=0;i<votes.length;i++) {
+        let voteId = votes[i].id;
+        await Vote.findByIdAndDelete(voteId);
+      }
+      for (let i=0;i<notes.length;i++) {
+        let noteId = notes[i].id;
+        await Note.findByIdAndDelete(noteId);
+      }
       await Book.findByIdAndDelete(req.params.id);
       res.redirect("/books");
     }
