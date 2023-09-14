@@ -3,8 +3,6 @@
   --primary-2: #CD553B;
   --secondary: #317EC4;
   --secondary-2: #1C4790;
-  --bs-primary: var(--primary);
-  --bs-primary-rgb: var(--primary);
 }
 
 body {
