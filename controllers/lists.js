@@ -5,6 +5,7 @@ const List = require("../models/list");
 const Book = require("../models/book");
 const Vote = require("../models/vote");
 const Note = require("../models/note");
+const User = require("../models/user");
 const Defaults = require("../models/defaults");
 
 async function show(req, res, next) {
@@ -14,7 +15,7 @@ async function show(req, res, next) {
     let note = await Note.find({list: list.id}).populate('book');
     res.render("lists/show", {
       app: Defaults,
-      title: list.name,
+      title: `${list.name}'s Reading List`,
       list: list,
       vote: vote,
       note: note,
@@ -61,6 +62,12 @@ async function update(req, res, next) {
 
 async function deleteList(req, res, next) {
   try {
+    let user = await User.find({readingList: req.params.id}).exec();
+    if(user[0]) {
+      user = await User.findById(user[0].id);
+      user.readingList = undefined;
+      user.save();
+    }
     await List.findByIdAndDelete(req.params.id);
     res.redirect("/lists");
   } catch (err) {

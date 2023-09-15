@@ -85,7 +85,7 @@ img {
 
 .content-lead {
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 2rem;
   margin: 1.5rem 0;
   display: inline-block;
 }
@@ -185,6 +185,7 @@ a.title {
   }
   .content-lead {
     text-align: center;
+    width: 100%;
   }
   .app-footer-link {
     text-align: center;
