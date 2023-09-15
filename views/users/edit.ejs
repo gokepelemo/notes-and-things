@@ -12,6 +12,13 @@
       <input type="text" name="email" value="<%= user.email %>" class="form-control" />
       <label for="photo">Photo</label>
       <input type="text" name="photo" value="<%= user.photo %>" class="form-control" />
+      <% if(user.role === "admin") {%>
+      <label for="role">Role</label>
+      <select name="role">
+        <option value="admin" class="form-control">Admin</option>
+        <option value="member" class="form-control">Member</option>
+      </select>
+      <% } %>
       <button type="submit" class="btn btn-primary">Update Profile</button>
     </form>
   </div>
