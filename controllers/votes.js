@@ -6,7 +6,7 @@ const Vote = require("../models/vote");
 async function create(req, res, next) {
   try {
     let newVote = await Vote.create(req.body);
-    if (req.user.role != "admin") return;
+    console.log(req.user)
     req.params.bookId
       ? (newVote.book = req.params.bookId)
       : req.params.noteId

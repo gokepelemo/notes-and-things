@@ -10,6 +10,10 @@ function show(req, res, next) {
   return;
 }
 
+function editNote(req, res, next) {
+  return;
+}
+
 async function index(req, res, next) {
   try {
     let notes = await Note.find({});
@@ -66,9 +70,6 @@ async function newNote(req, res, next) {
   }
 }
 
-function editNote(req, res, next) {
-  return;
-}
 
 module.exports = {
   show,

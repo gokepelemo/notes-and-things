@@ -7,8 +7,12 @@ const Notes = require("../models/note");
 const Defaults = require("../models/defaults");
 
 async function home(req, res, next) {
+  try {
   let books = await Book.find({});
   res.render("index", { app: Defaults, books: books, title: `Home` });
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 module.exports = {

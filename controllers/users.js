@@ -34,10 +34,8 @@ async function show(req, res, next) {
   }
 }
 
-
 async function update(req, res, next) {
-  // todo: get details of the logged-in user to confirm that they are an admin 
-  // if (req.body.role && req.user.role != "admin") return;
+  if (req.body.role && req.user.role != "admin") return;
   try {
     let newList,
       user = await User.findById(req.params.id).exec();
@@ -55,7 +53,6 @@ async function update(req, res, next) {
     console.error(err);
   }
 }
-
 
 async function editUser(req, res, next) {
   try {
