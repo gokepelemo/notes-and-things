@@ -9,6 +9,6 @@ router.get('/notes', notesCtrl.index);
 router.post('/notes', ensureLoggedIn, notesCtrl.create);
 router.delete('/notes/:id', ensureLoggedIn, notesCtrl.delete);
 router.put('/notes/:id', ensureLoggedIn, notesCtrl.update)
-router.get('/notes/:id/edit', notesCtrl.edit);
+router.get('/notes/:id/edit', ensureLoggedIn, notesCtrl.edit);
 
 module.exports = router;

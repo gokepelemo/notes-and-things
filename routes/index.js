@@ -28,12 +28,16 @@ router.get(
     failureMessage: true,
   }),
   function (req, res) {
-    res.redirect(req.cookies.redirect);
+    let redirect = req.cookies.redirect;
+    res.clearCookie("redirect");
+    res.redirect(redirect);
   }
 );
 router.get("/logout", function (req, res) {
   req.logout(function () {
-    res.redirect(req.cookies.redirect);
+    let redirect = req.cookies.redirect;
+    res.clearCookie("redirect");
+    res.redirect(redirect);
   });
 });
 router.get("/", siteCtrl.home);
