@@ -6,6 +6,14 @@ const Book = require("../models/book");
 const List = require("../models/list");
 const Defaults = require("../models/defaults");
 
+function index(req, res, next) {
+  return;
+}
+
+function deleteUser(req, res, next) {
+  return;
+}
+
 async function show(req, res, next) {
   let currentlyReading, readingList;
   try {
@@ -26,9 +34,6 @@ async function show(req, res, next) {
   }
 }
 
-function index(req, res, next) {
-  return;
-}
 
 async function update(req, res, next) {
   // todo: get details of the logged-in user to confirm that they are an admin 
@@ -51,9 +56,6 @@ async function update(req, res, next) {
   }
 }
 
-function deleteUser(req, res, next) {
-  return;
-}
 
 async function editUser(req, res, next) {
   try {
