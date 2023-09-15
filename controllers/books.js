@@ -5,10 +5,11 @@ const router = express.Router();
 const Book = require("../models/book");
 const Vote = require("../models/vote");
 const Note = require("../models/note");
+const List = require("../models/list");
 const Defaults = require("../models/defaults");
 
 function generateSlug(txt) {
-  txt = txt.toLowerCase().split(" ");
+  txt = txt.toLowerCase().replace(/[!@#$%^&*()_+:]/g, "").split(" ");
   const articles = ["a", "an", "the", "of"];
   articles.forEach((item) => {
     if (txt.indexOf(item) !== -1) txt.splice(txt.indexOf(item), 1);
@@ -22,6 +23,10 @@ async function show(req, res, next) {
     let book = (await Book.findOne({ slug: req.params.id }))
       ? await Book.findOne({ slug: req.params.id })
       : await Book.findById(req.params.id);
+    let note = await Note.find({ book: book.id })
+      .populate("user")
+      .populate("list");
+    let vote = await Vote.find({ note }).populate('note');
     if (book.slug) {
       res.set({
         Link: `<${req.protocol}://${req.headers.host}/books/${book.id}>; rel="canonical"`,
@@ -30,6 +35,8 @@ async function show(req, res, next) {
         app: Defaults,
         title: book.name,
         book: book,
+        note: note,
+        vote: vote,
       });
     } else {
       res.render("books/show", {
@@ -44,7 +51,6 @@ async function show(req, res, next) {
 }
 
 async function index(req, res, next) {
-  console.log(req.user)
   try {
     const books = await Book.find({});
     res.render("books/index", {
@@ -85,13 +91,13 @@ async function update(req, res, next) {
 async function deleteBook(req, res, next) {
   try {
     if (req.user.role === "admin") {
-      let votes = await Vote.find({book: req.params.id});
-      let notes = await Note.find({book: req.params.id});
-      for (let i=0;i<votes.length;i++) {
+      let votes = await Vote.find({ book: req.params.id });
+      let notes = await Note.find({ book: req.params.id });
+      for (let i = 0; i < votes.length; i++) {
         let voteId = votes[i].id;
         await Vote.findByIdAndDelete(voteId);
       }
-      for (let i=0;i<notes.length;i++) {
+      for (let i = 0; i < notes.length; i++) {
         let noteId = notes[i].id;
         await Note.findByIdAndDelete(noteId);
       }

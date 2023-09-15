@@ -21,6 +21,7 @@ router.get(
   })
 );
 
+// todo: we need to clear out the redirect cookies after a successful login/logout
 router.get(
   "/oauth2callback",
   passport.authenticate("google", {
@@ -29,17 +30,17 @@ router.get(
   }),
   function (req, res) {
     let redirect = req.cookies.redirect;
-    res.clearCookie("redirect");
     res.redirect(redirect);
   }
 );
 router.get("/logout", function (req, res) {
   req.logout(function () {
     let redirect = req.cookies.redirect;
-    res.clearCookie("redirect");
     res.redirect(redirect);
   });
 });
+
+router.get("/login", siteCtrl.login);
 router.get("/", siteCtrl.home);
 
 module.exports = router;

@@ -1,0 +1,15 @@
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/nav.ejs') %>
+<div class="content">
+  <div class="row book-list">
+    <div class="col">
+      <% if (!user) {%>
+      <h3 class="lead content-lead mb-4"><%= title %></h3>
+      <p>You need to be logged in to view this page or take this action.</p>
+      <a href="/auth/google"><button class="btn btn-secondary">Login Now</button></a>
+      <% } else { %>
+      <p>You are already logged in.</p>
+      <% } %>
+    </div>
+  </div>
+  <%- include('./partials/footer.ejs') %>

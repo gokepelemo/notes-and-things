@@ -5,15 +5,16 @@ const Vote = require("../models/vote");
 
 async function create(req, res, next) {
   try {
+    req.body.user = req.user.id
+    console.log(req.body)
     let newVote = await Vote.create(req.body);
-    console.log(req.user)
     req.params.bookId
       ? (newVote.book = req.params.bookId)
       : req.params.noteId
       ? (newVote.note = req.params.noteId)
       : newVote;
     await newVote.save();
-    res.redirect(`${req.body.list ? "/lists/"+req.body.list : "/lists"}`);
+    res.redirect(req.headers.referer);
   } catch (err) {
     console.error(err);
   }

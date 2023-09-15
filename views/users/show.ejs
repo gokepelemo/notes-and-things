@@ -1,7 +1,48 @@
 <%- include('../partials/header.ejs') %>
 <%- include('../partials/nav.ejs') %>
 <div class="content">
-<img class="profile-photo" src="<%= user.photo %>" />
-<h3 class="lead profile-name"><%= user.name %></h3>
-<a href="/users" class="app-footer-link">< Back to Users</a>
-<%- include('../partials/footer.ejs') %>
+  <div class="row">
+    <% if(user.photo) { %>
+    <div class="col-md-2">
+      <img src="<%= user.photo %>" class="img-list" />
+    </div>
+    <% } %>
+    <div class="col<%= user.photo ? ' ps-4' : '' %>">
+      <h3 class="lead content-lead"><%= user.name %></h3>
+      <div class="entity-actions mx-auto">
+        <ul class="nav nav-pills">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-body" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><span class="fas fa-share-nodes"></span> Share</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#"><span class="fa-brands fa-x-twitter"></span> X</a></li>
+              <li><a class="dropdown-item" href="#"><span class="fab fa-facebook-square"></span> Facebook</a></li>
+              <li><a class="dropdown-item" href="#"><span class="fab fa-pinterest-square"></span> Pinterest</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-body" aria-current="page" href="/notes"><span class="fas fa-note-sticky"></span> Notes</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <h5 class="pt-4">Currently Reading</h5>
+      <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="https://m.media-amazon.com/images/I/41Gc1klZ0DL._SY445_SX342_.jpg" class="img-fluid rounded-start" height=>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Inspired</h5>
+              <p class="card-text"><small class="text-body-secondary">by Marty Cagan</small></p>
+            </div>
+          </div>
+        </div>
+        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-success" style="width: 70%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include('../partials/footer.ejs') %>

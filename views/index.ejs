@@ -1,21 +1,54 @@
 <%- include('./partials/header.ejs') %>
 <%- include('./partials/nav.ejs') %>
 <div class="content">
-<h3 class="lead content-lead">Trending Books</h3>
-<% if(books.length) {%>
-<ul class="list-group">
-<% books.forEach((item) => { %>
-<li class="list-group-item">
-<div class="trending-item">
-<img src="<%= item.photo ? item.photo : "https://placehold.co/100x100" %>" />
-<% // todo: this uses a slug that I'll be deprecating very meow %>
-<p class="book"><a href="/books/<%= item.slug ? item.slug : item.id %>"><%= item.name %></a> <span class="book-author"><%= item.author %></span></p>
-</div>
-</li>
-<% }) %>
-</ul>
-<% } else { %>
-<p>No Books found.</p>
-<% } %>
+  <div class="row book-list">
+    <div class="col">
+      <h3 class="lead content-lead mb-4">Trending Books</h3>
+      <% if(books.length) {%>
+      <div class="list-group">
+        <% books.forEach((item) => {%>
+        <a href="/books/<%= item.slug ? item.slug : item.id %>" class="list-group-item list-group-item-action book-list-item" aria-current="true">
+          <div class="trending-item d-flex w-100 justify-content-between">
+            <h5 class="trending-item mb-1"><%= item.name %></h5>
+            <div class="action-buttons">
+              <% if (user) { %>
+              <div class="btn-group">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="fas fa-list"></span> Add to List
+                </button>
+                <ul class="dropdown-menu">
+                  <% lists.forEach((item) => {
+                  if (item.user.id === user.id) {%>
+                  <span class="dropdown-item list-link" href="#" data-list="<%= item.id %>"><%= item.name %></span>
+                  <% }}) %>
+                </ul>
+              </div>
+              <% } %>
+              <div class="btn-group">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="fas fa-share-nodes"></span> Share
+                </button>
+                <ul class="dropdown-menu">
+                  <span class="dropdown-item"><span class="fa-brands fa-x-twitter"></span> X</span>
+                  <span class="dropdown-item"><span class="fab fa-facebook-square"></span> Facebook</span>
+                  <span class="dropdown-item"><span class="fab fa-pinterest-square"></span> Pinterest</span>
+                </ul>
+              </div>
+              <button class="btn btn-secondary btn-sm"><span class="fas fa-note-sticky"></span> Notes</button>
+            </div>
+          </div>
+          <p class="mb-1 book-author"><%= item.author %></p>
+          <p class="mb-1">
+            <span class="badge rounded-pill text-bg-secondary">On X Lists</span>
+            <span class="badge rounded-pill text-bg-secondary">In Y Notes</span>
+          </p>
+        </a>
+        <% }) %>
+      </div>
+    </div>
+    <% } else { %>
+    <p>There are no trending books.</p>
+    <% } %>
+  </div>
 </div>
 <%- include('./partials/footer.ejs') %>

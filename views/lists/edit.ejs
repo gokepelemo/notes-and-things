@@ -4,7 +4,7 @@
 <h3 class="lead content-lead"><%= `Edit - ${list.name}` %></h3>
 <% if (user) {%>
 <div class="form-group">
-<form method="POST" action="/lists/<%= list.id %>?_method=PUT" class="list-edit">
+<form method="POST" action="/lists/<%= list.id %>?_method=PUT" class="list-edit mt-4">
 <input type="hidden" value="<%= user.id %>" name="user" />
 <label for="name">List Name</label>
 <input type="text" name="name" value="<%= list.name %>" class="form-control" />

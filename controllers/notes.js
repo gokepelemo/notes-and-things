@@ -64,6 +64,7 @@ async function newNote(req, res, next) {
       book: book,
       title: `New Note`,
       list: req.query.list,
+      prev: req.headers.referer,
     });
   } catch (err) {
     console.error(err);

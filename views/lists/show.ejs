@@ -2,22 +2,45 @@
 <%- include('../partials/nav.ejs') %>
 <div class="content">
   <div class="row">
-    <div class="col">
-      <% if(list.photo) { %>
+    <% if(list.photo) { %>
+    <div class="col-md-3">
       <img src="<%= list.photo %>" class="img-list" />
-      <% } %>
+    </div>
+    <% } %>
+    <div class="col-md-9<%= list.photo ? ' ps-4' : '' %>">
       <h3 class="lead content-lead"><%= list.name %></h3>
+      <div class="entity-actions">
+        <ul class="nav nav-pills d-flex align-items-center">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-body" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><span class="fas fa-share-nodes"></span> Share</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#"><span class="fa-brands fa-x-twitter"></span> X</a></li>
+              <li><a class="dropdown-item" href="#"><span class="fab fa-facebook-square"></span> Facebook</a></li>
+              <li><a class="dropdown-item" href="#"><span class="fab fa-pinterest-square"></span> Pinterest</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-body" aria-current="page" href="#" target="_blank"><span class="fas fa-note-sticky"></span> Notes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-body" aria-current="page" href="/lists/<%= list.id %>/edit"><span class="fas fa-plus"></span> Add Books</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-body" aria-current="page" href="/lists/<%= list.id %>/edit"><span class="fas fa-pencil"></span> Edit</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="row book-list">
-    <div class="col">
+    <div class="col-lg-12">
       <% if (list.books.length) {%>
       <ul class="nav nav-pills nav-list">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">To Read</a>
+          <a class="nav-link text-white bg-black active" aria-current="page" href="#">To Read</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Recently Read</a>
+          <a class="nav-link text-body" href="#">Recently Read</a>
         </li>
       </ul>
       <div class="list-group">
@@ -46,7 +69,7 @@
                 <button type="submit" class="btn btn-light btn-action"><%= bookVotes[item.id] ? bookVotes[item.id] : 0 %><span class="fas fa-star"></span></button>
               </form>
               <form action="/books/<%= item.id %>/notes/new" method="GET" class="frm-action">
-              <input name="list" type="hidden" value="<%= list.id %>" />
+                <input name="list" type="hidden" value="<%= list.id %>" />
                 <button type="submit" class="btn btn-light btn-action"><%= notes[item.id] ? notes[item.id] : 0 %><span class="fa-solid fa-note-sticky"></span></button>
               </form>
               <% } %>
