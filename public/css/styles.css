@@ -65,6 +65,7 @@ footer {
 h5.trending-item {
   width: 50%;
   line-height: 2rem;
+  cursor: pointer;
 }
 
 img {

@@ -6,7 +6,6 @@ const Vote = require("../models/vote");
 async function create(req, res, next) {
   try {
     req.body.user = req.user.id
-    console.log(req.body)
     let newVote = await Vote.create(req.body);
     req.params.bookId
       ? (newVote.book = req.params.bookId)
