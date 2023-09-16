@@ -49,9 +49,9 @@ async function create(req, res, next) {
 
 async function update(req, res, next) {
   let list = await List.findById(req.params.id);
-  list.name = req.body.name;
-  list.photo = req.body.photo;
-  list.books.push(req.body.books);
+  if(req.body.name) list.name = req.body.name;
+  if(req.body.photo) list.photo = req.body.photo;
+  if(list.books.indexOf(req.body.books) === -1) list.books.push(req.body.books);
   try {
     await list.save();
     res.redirect(`/lists/${list.id}`);

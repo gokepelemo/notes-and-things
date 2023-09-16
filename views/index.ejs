@@ -4,26 +4,26 @@
   <div class="row book-list">
     <div class="col">
       <h3 class="lead content-lead mb-4">Trending Books</h3>
-      <% if(books.length) {%>
+      <% if(books.length) { %>
       <div class="list-group">
-        <% books.forEach((item) => {%>
-        <a href="/books/<%= item.slug ? item.slug : item.id %>" class="list-group-item list-group-item-action book-list-item" aria-current="true">
+        <% books.forEach((item) => { %>
+        <a href="/books/<%= item.slug %>" class="list-group-item list-group-item-action book-list-item" aria-current="true">
           <div class="trending-item d-flex w-100 justify-content-between">
             <h5 class="trending-item mb-1"><%= item.name %></h5>
             <div class="action-buttons">
               <% if (user) { %>
-              <div class="btn-group">
+              <div class="btn-group add-to-list">
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <span class="fas fa-list"></span> Add to List
                 </button>
                 <ul class="dropdown-menu">
-                  <% lists.forEach((item) => {
-                  if (item.user.id === user.id) {%>
-                  <span class="dropdown-item list-link" href="#" data-list="<%= item.id %>"><%= item.name %></span>
-                  <% }}) %>
+                  <% lists.forEach((list) => { %>
+                  <% if(list.user.id == user.id) {%>
+                    <span class="dropdown-item add-to-list-action" href="#" data-list="<%= list.id %>" data-book="<%= item.id %>"><%= list.name === user.name ? "Your Book List" : list.name %></span>
+                  <% }}); %>
                 </ul>
               </div>
-              <% } %>
+              <% }; %>
               <div class="btn-group">
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <span class="fas fa-share-nodes"></span> Share

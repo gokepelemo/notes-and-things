@@ -2,23 +2,31 @@
 <%- include('../partials/nav.ejs') %>
 <div class="content">
   <% if (user) {%>
-  <h3 class="lead content-lead"><%= title %></h3>
+  <h3 class="lead content-lead mb-4"><%= title %></h3>
   <div class="form-group">
-    <form method="POST" action="/users/<%= user.id %>?_method=PUT">
-      <input type="hidden" value="<%= user.id %>" name="user" />
+    <form method="POST" action="/users/<%= userData.id %>?_method=PUT">
+      <input type="hidden" value="<%= userData.id %>" name="user" />
       <label for="name">Name</label>
-      <input type="text" name="name" value="<%= user.name %>" class="form-control" />
+      <input type="text" name="name" value="<%= userData.name %>" class="form-control" />
       <label for="">Email</label>
-      <input type="text" name="email" value="<%= user.email %>" class="form-control" />
+      <input type="text" name="email" value="<%= userData.email %>" class="form-control" />
       <label for="photo">Photo</label>
-      <input type="text" name="photo" value="<%= user.photo %>" class="form-control" />
+      <input type="text" name="photo" value="<%= userData.photo %>" class="form-control" />
       <% if(user.role === "admin") {%>
       <label for="role">Role</label>
-      <select name="role" class="form-control" value="<%= user.role %>">
-        <option value="admin">Admin</option>
-        <option value="member">Member</option>
+      <select name="role" class="form-control">
+        <option value="admin" <%= userData.role === "admin" ? "selected" : "" %>>Admin</option>
+        <option value="member" <%= userData.role === "member" ? "selected" : "" %>>Member</option>
       </select>
       <% } %>
+      <label for="reading">Currently Reading</label>
+      <select name="reading" class="form-control" value="<%= userData.reading.id %>">
+      <% book.forEach((item) => { %>
+        <option value="<%= item.id %>" <%= userData.reading.id === item.id ? "selected" : "" %>><%= item.name %></option>
+      <% }) %>
+      </select>
+      <label for="readingProgress">Reading Progress <span id="readingProgressDisplay"><%= userData.readingProgress %>%</span></label>
+      <input type="range" name="readingProgress" class="form-range" id="readingProgress" value="<%= userData.readingProgress %>">
       <button type="submit" class="btn btn-primary">Update Profile</button>
     </form>
   </div>

@@ -2,15 +2,15 @@
 <%- include('../partials/nav.ejs') %>
 <div class="content">
   <div class="row">
-    <% if(user.photo) { %>
+    <% if(userData.photo) { %>
     <div class="col-md-2">
-      <img src="<%= user.photo %>" class="img-list" />
+      <img src="<%= userData.photo %>" class="img-list" />
     </div>
     <% } %>
-    <div class="col<%= user.photo ? ' ps-4' : '' %>">
-      <h3 class="lead content-lead"><%= user.name %></h3>
-      <div class="entity-actions mx-auto">
-        <ul class="nav nav-pills">
+    <div class="col<%= userData.photo ? ' ps-4' : '' %>">
+      <h3 class="lead content-lead"><%= userData.name %></h3>
+      <div class="entity-actions">
+        <ul class="nav nav-pills user-nav">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-body" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><span class="fas fa-share-nodes"></span> Share</a>
             <ul class="dropdown-menu">
@@ -22,25 +22,28 @@
           <li class="nav-item">
             <a class="nav-link text-body" aria-current="page" href="/notes"><span class="fas fa-note-sticky"></span> Notes</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link text-body" aria-current="page" href="/users/<%= userData.id %>/edit"><span class="fas fa-pencil"></span> Edit</a>
+          </li>
         </ul>
       </div>
     </div>
-    <div class="col-sm-4">
-      <h5 class="pt-4">Currently Reading</h5>
+    <div class="col-sm-6">
+      <h5 class="pt-4 currently-reading">Currently Reading</h5>
       <div class="card mb-3">
         <div class="row g-0">
-          <div class="col-md-4">
-            <img src="https://m.media-amazon.com/images/I/41Gc1klZ0DL._SY445_SX342_.jpg" class="img-fluid rounded-start" height=>
+          <div class="col-sm-4">
+            <img src="<%= userData.reading.photo %>" class="img-fluid rounded-start" />
           </div>
-          <div class="col-md-8">
+          <div class="col-sm-8">
             <div class="card-body">
-              <h5 class="card-title">Inspired</h5>
-              <p class="card-text"><small class="text-body-secondary">by Marty Cagan</small></p>
+              <h5 class="card-title"><%= userData.reading.name %></h5>
+              <p class="card-text"><small class="text-body-secondary book-author"><%= userData.reading.author %></small></p>
             </div>
           </div>
         </div>
-        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-success" style="width: 70%"></div>
+        <div class="progress" role="progressbar" aria-label="Reading Progress" aria-valuenow="<%= userData.readingProgress %>" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-success" style="width: <%= `${userData.readingProgress}%` %>"></div>
         </div>
       </div>
     </div>

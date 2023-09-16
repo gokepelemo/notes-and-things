@@ -17,16 +17,13 @@ function deleteUser(req, res, next) {
 async function show(req, res, next) {
   let currentlyReading, readingList;
   try {
-    let user = await User.findById(req.params.id).exec();
-    if (user.readingList)
-      readingList = await List.findById(user.readingList).exec();
-    if (user.currentlyReading)
-      currentlyReading = await Book.findById(user.readingList).exec();
+    let userData = await User.findById(req.params.id).populate('reading').exec();
+    if (userData.readingList)
+      readingList = await List.findById(userData.readingList).exec();
     res.render("users/show", {
-      title: user.name,
+      title: userData.name,
       app: Defaults,
-      user: user,
-      book: currentlyReading,
+      userData: userData,
       list: readingList,
     });
   } catch (err) {
@@ -38,17 +35,23 @@ async function update(req, res, next) {
   if (req.body.role && req.user.role != "admin") return;
   try {
     let newList,
-      user = await User.findById(req.params.id).exec();
-    if (!user.readingList) {
+      userData = await User.findById(req.params.id).exec();
+    if (!userData.readingList) {
       newList = await List.create({
         name: req.body.name,
         photo: req.body.photo ? req.body.photo : `https://placehold.co/100x100`,
         user: req.body.user,
       });
-      user.readingList = newList.id;
-      await user.save();
+      userData.readingList = newList.id;
     }
-    res.redirect(`/profile/${user.id}`);
+    userData.name = req.body.name;
+    userData.email = req.body.email;
+    userData.photo = req.body.photo;
+    userData.role = req.body.role;
+    userData.reading = req.body.reading;
+    userData.readingProgress = req.body.readingProgress;
+    await userData.save();
+    res.redirect(`/profile/${userData.id}`);
   } catch (err) {
     console.error(err);
   }
@@ -56,11 +59,13 @@ async function update(req, res, next) {
 
 async function editUser(req, res, next) {
   try {
-    let user = await User.findById(req.params.id).exec();
+    let userData = await User.findById(req.params.id).populate('reading').exec();
+    let book = await Book.find({});
     res.render(`users/edit`, {
       app: Defaults,
       title: `Edit Profile`,
-      user: user,
+      userData: userData,
+      book: book,
     });
   } catch (err) {
     console.error(err);

@@ -1,6 +1,10 @@
 // todo: look into schema.org and use open graph tags by default
 // todo: use developers.google.com/books API to enrich book data after it's created
-// info: Notes and Things mockup - https://balsamiq.cloud/sz7zl5n/pt7qwj0/r6491
+// todo: setup success/failure/alert messaging
+// todo: use ajax for likes and stars
+// todo: code share buttons
+// todo: code google books api integration
+// todo: finalize profile page and read/to read logic
 
 const createError = require('http-errors');
 const express = require('express');

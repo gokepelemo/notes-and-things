@@ -1,8 +1,8 @@
 :root {
-  --primary: #B21854;
-  --primary-2: #CD553B;
-  --secondary: #317EC4;
-  --secondary-2: #1C4790;
+  --primary: #b21854;
+  --primary-2: #cd553b;
+  --secondary: #317ec4;
+  --secondary-2: #1c4790;
 }
 
 body {
@@ -32,7 +32,10 @@ p.mb-1 {
   display: block;
 }
 
-input,select,textarea,.list-edit p {
+input,
+select,
+textarea,
+.list-edit p {
   margin-bottom: 1.5rem;
 }
 
@@ -58,8 +61,9 @@ footer {
   cursor: auto;
 }
 
-.book-author:before, .note-author:before {
-  content: 'by '
+.book-author:before,
+.note-author:before {
+  content: "by ";
 }
 
 h5.trending-item {
@@ -98,7 +102,7 @@ img {
 }
 
 .nav-icon {
-  margin: 0 0.5rem 0 2rem
+  margin: 0 0.5rem 0 2rem;
 }
 
 .nav-list {
@@ -106,7 +110,7 @@ img {
 }
 
 .nav-icon span:hover {
-  color: var(--primary-2)
+  color: var(--primary-2);
 }
 
 .toggler {
@@ -118,7 +122,7 @@ img {
 }
 
 .navbar-nav {
-  margin: 0 0.5rem 0 1rem
+  margin: 0 0.5rem 0 1rem;
 }
 
 .navbar-nav li {
@@ -135,7 +139,8 @@ a.title {
   color: black;
 }
 
-.book-content h3, .book-content h4 {
+.book-content h3,
+.book-content h4 {
   display: inline-block;
 }
 
@@ -172,6 +177,10 @@ a.title {
   padding-left: 0;
 }
 
+.add-to-list {
+  cursor: pointer;
+}
+
 @media (max-width: 992px) {
   body {
     padding: 20px 0 0 0;
@@ -179,7 +188,8 @@ a.title {
   .content {
     margin: 0.25vmin;
   }
-  .title,.tagline {
+  .title,
+  .tagline {
     text-align: center;
     padding: 0 0.25vmin;
   }
@@ -192,6 +202,9 @@ a.title {
     text-align: center;
     width: 100%;
   }
+  h5.book-author {
+    text-align: center;
+  }
   .app-footer-link {
     text-align: center;
   }
@@ -200,5 +213,14 @@ a.title {
   }
   form {
     width: 100%;
+  }
+  .add-to-list {
+    display: none;
+  }
+  .user-nav {
+    justify-content: center;
+  }
+  .currently-reading {
+    text-align: center;
   }
 }

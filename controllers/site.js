@@ -13,7 +13,7 @@ async function home(req, res, next) {
     lists = await List.find({}).populate('user');
   }
   let books = await Book.find({});
-  res.render("index", { app: Defaults, books: books, lists: lists, title: `Home` });
+  res.render("index", { app: Defaults, books: books, lists: lists, title: `Home`, message: {content: ""} });
   } catch (err) {
     console.error(err)
   }

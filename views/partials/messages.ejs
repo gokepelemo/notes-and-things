@@ -1,4 +1,4 @@
-<% if(typeof(message) != "undefined") {%>
+<% if(typeof(message) != "undefined" && message.content) {%>
 <div class="alert <%= message.type === `failure` ? `alert-danger` : message.type === `success` ? `alert-success` : message.type === `info` ? `alert-info` : `alert-light` %>" role="alert">
   <%= message.content %>
 </div>
