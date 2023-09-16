@@ -66,7 +66,7 @@ let notesAction = document.querySelectorAll(".notes-action");
 if (notesAction) {
   notesAction.forEach((action) => {
     action.addEventListener("click", function () {
-      window.location.assign(`/books/${action.dataset.book}#notes`);
+      window.location.assign(`/books/${action.dataset.slug}#notes`);
     });
   });
 }

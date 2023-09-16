@@ -19,7 +19,7 @@
                 <ul class="dropdown-menu">
                   <% lists.forEach((list) => { %>
                   <% if(list.user.id == user.id) {%>
-                    <span class="dropdown-item add-to-list-action" href="#" data-booktitle="<%= item.name %>" data-list="<%= list.id %>" data-book="<%= item.id %>"><%= list.name === user.name ? `Your Reading List` : list.name %></span>
+                    <span class="dropdown-item add-to-list-action" href="#" data-booktitle="<%= item.name %>" data-list="<%= list.id %>" data-book="<%= item.id %>" data-slug="<%= item.slug %>"><%= list.name === user.name ? `Your Reading List` : list.name %></span>
                   <% }}); %>
                 </ul>
               </div>
@@ -34,7 +34,7 @@
                   <span class="dropdown-item"><span class="fab fa-pinterest-square"></span> Pinterest</span>
                 </ul>
               </div>
-              <button class="btn btn-secondary btn-sm notes-action" data-book="<%= item.id %>"><span class="fas fa-note-sticky"></span> Notes</button>
+              <button class="btn btn-secondary btn-sm notes-action" data-book="<%= item.id %>" data-slug="<%= item.slug %>"><span class="fas fa-note-sticky"></span> Notes</button>
             </div>
           </div>
           <p class="mb-1 book-author"><%= item.author %></p>
