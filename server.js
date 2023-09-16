@@ -1,10 +1,10 @@
 // todo: look into schema.org and use open graph tags by default
-// todo: use developers.google.com/books API to enrich book data after it's created
 // todo: setup success/failure/alert messaging
 // todo: use ajax for likes and stars
 // todo: code share buttons
 // todo: code google books api integration
 // todo: finalize profile page and read/to read logic
+// todo: code pagination on index pages
 
 const createError = require('http-errors');
 const express = require('express');

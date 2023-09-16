@@ -16,10 +16,10 @@ function editNote(req, res, next) {
 
 async function index(req, res, next) {
   try {
-    let notes = await Note.find({});
+    let notes = await Note.find({}).populate('user');
     res.render("notes/index", {
       app: Defaults,
-      title: `All Notes`,
+      title: `My Notes`,
       note: notes,
     });
   } catch (err) {

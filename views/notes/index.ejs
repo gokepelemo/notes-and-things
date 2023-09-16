@@ -1,15 +1,30 @@
 <%- include('../partials/header.ejs') %>
 <%- include('../partials/nav.ejs') %>
 <div class="content">
-<h3 class="lead content-lead"><%= title %></h3>
-<ul>
-<% note.forEach((item) => { %>
-<li>
-<a href="/notes/<%= item.id %>"><%= item.title %></a>
-<form method="POST" action="/notes/<%= item.id %>?_method=DELETE" class="frm-action">
-<button type="submit" class="btn btn-light btn-action">X</button>
-</form>
-</li>
-<% })%>
-</ul>
+  <div class="row note-list">
+    <div class="col">
+      <h3 class="lead content-lead mb-4"><%= title %></h3>
+      <ul>
+        <% note.forEach((item) => { %>
+        <% console.log(item.user.id)%>
+        <% if(user.role === "admin") { %>
+        <li>
+          <a href="/notes/<%= item.id %>"><%= item.title %></a>
+          <form method="POST" action="/notes/<%= item.id %>?_method=DELETE" class="frm-action">
+            <button type="submit" class="btn btn-light btn-action">X</button>
+          </form>
+        </li>
+        <% } else if (user.role === "member" && item.user.id === user.id) {%>
+        <li>
+          <a href="/notes/<%= item.id %>"><%= item.title %></a>
+          <form method="POST" action="/notes/<%= item.id %>?_method=DELETE" class="frm-action">
+            <button type="submit" class="btn btn-light btn-action">X</button>
+          </form>
+        </li>
+        <% } %>
+        <% })%>
+      </ul>
+    </div>
+  </div>
+</div>
 <%- include('../partials/footer.ejs') %>

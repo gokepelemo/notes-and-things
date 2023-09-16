@@ -30,7 +30,7 @@ async function index(req, res, next) {
     let list = await List.find({});
     res.render("lists/index", {
       app: Defaults,
-      title: `All Lists`,
+      title: `My Lists`,
       list: list,
     });
   } catch (err) {

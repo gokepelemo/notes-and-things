@@ -31,7 +31,7 @@
     </div>
     <div class="row book-list">
       <div class="col-md-12 align-middle">
-      <% let noteVotes = {};
+        <% let noteVotes = {};
         vote.forEach((item) => {
           if (item.note.id) {
             let id = item.note.id;
@@ -40,7 +40,7 @@
           }
         });
        %>
-        <% if(note || list) {%>
+        <% if(note) {%>
         <ul class="nav nav-pills nav-list">
           <li class="nav-item">
             <a class="nav-link text-white bg-black active" aria-current="page" href="#">Notes</a>
@@ -63,10 +63,10 @@
             </div>
             <p class="mb-1"><%= item.content %></p>
             <p class="mb-1">
-            <span class="badge rounded-pill text-bg-secondary note-author"><%= item.user.name %></span>
-            <% if(item.list) {%>
-            <span class="badge rounded-pill text-bg-secondary note-list"><%= item.list.name %></span>
-            <% } %>
+              <span class="badge rounded-pill text-bg-secondary note-author"><%= item.user.name %></span>
+              <% if(item.list) {%>
+              <span class="badge rounded-pill text-bg-secondary note-list"><%= item.list.name %></span>
+              <% } %>
             </p>
           </a>
           <% }); %>
@@ -80,7 +80,5 @@
       <p>There are no notes added to this book, and it isn't on any bookshelves.</p>
       <% }%>
     </div>
-    <a href="/books" class="app-footer-link">
-
-      < Back to Books</a>
-        <%- include('../partials/footer.ejs') %>
+    <a href="<%= prev ? prev : "/books" %>" class="app-footer-link btn btn-secondary btn-sm"><span class="fas fa-caret-left"></span> Back <%= prev ? "" : "to Books" %></a>
+    <%- include('../partials/footer.ejs') %>

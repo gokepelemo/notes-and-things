@@ -59,7 +59,7 @@
         <% list.books.forEach((item) => {%>
         <a href="/books/<%= item.slug %>" class="list-group-item list-group-item-action book-list-item" aria-current="true">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1"><%= item.name %></h5>
+            <h5 class="item-title mb-1"><%= item.name %></h5>
             <div class="action-buttons">
               <% if(user) {
               %>
@@ -85,8 +85,6 @@
     <p>There are no books in this list.</p>
     <a href="/lists/<%= list.id %>/edit"><button class="btn btn-primary">Add Books</button></a>
     <% } %>
+    <a href="/lists" class="app-footer-link btn btn-secondary btn-sm"><span class="fas fa-caret-left"></span> Back to Lists</a>
   </div>
-  <a href="/lists" class="app-footer-link">
-
-    < Back to Lists</a>
       <%- include('../partials/footer.ejs') %>

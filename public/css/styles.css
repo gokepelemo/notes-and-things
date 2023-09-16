@@ -7,7 +7,7 @@
 
 body {
   padding: 50px;
-  font: 16px "JetBrains Mono", Arial, sans-serif;
+  font: 16px "Inter", Arial, sans-serif;
 }
 
 a {
@@ -16,6 +16,10 @@ a {
 
 form {
   width: 50%;
+}
+
+pre {
+  display: none;
 }
 
 .mb-1 {
@@ -47,10 +51,6 @@ label {
 footer {
   margin: 2rem auto;
   text-align: center;
-}
-
-.tagline {
-  font-size: 1.25rem;
 }
 
 .book {
@@ -132,13 +132,27 @@ img {
 .site-logo {
   color: var(--primary);
   margin: 0 1.5rem 0 0;
+  text-decoration: none;
+}
+
+h1.title {
+  text-transform: uppercase;
+  color: black;
+  font: 500 3rem "JetBrains Mono", Arial, sans-serif;
 }
 
 a.title {
   text-decoration: none;
-  color: black;
 }
 
+.navbar {
+  text-transform: uppercase;
+  font: 500 1rem "JetBrains Mono", Arial, sans-serif;
+}
+
+.tagline {
+  font: 1.25rem "JetBrains Mono", Arial, sans-serif;
+}
 .book-content h3,
 .book-content h4 {
   display: inline-block;
@@ -158,6 +172,7 @@ a.title {
 .app-footer-link {
   display: block;
   margin: 2rem 0;
+  width: auto;
 }
 
 .alert {
@@ -177,8 +192,14 @@ a.title {
   padding-left: 0;
 }
 
-.add-to-list {
+.add-to-list,.add-to-list-action,.item-title {
   cursor: pointer;
+}
+
+.currently-reading {
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
 }
 
 @media (max-width: 992px) {

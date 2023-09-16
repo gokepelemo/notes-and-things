@@ -37,12 +37,16 @@ async function show(req, res, next) {
         book: book,
         note: note,
         vote: vote,
+        prev: req.headers.referer,
       });
     } else {
       res.render("books/show", {
         app: Defaults,
         title: book.name,
         book: book,
+        note: note,
+        vote: vote,
+        prev: req.headers.referer,
       });
     }
   } catch (err) {
@@ -54,7 +58,7 @@ async function index(req, res, next) {
   try {
     const books = await Book.find({});
     res.render("books/index", {
-      title: `All Books`,
+      title: `My Books`,
       app: Defaults,
       books: books,
     });
