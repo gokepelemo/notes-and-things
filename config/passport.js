@@ -20,12 +20,14 @@ passport.use(
           googleId: profile.id,
           email: profile.emails[0].value,
           photo: profile.photos[0].value,
+          role: "member",
         });
         if (!user.readingList) {
           newList = await List.create({
             name: user.name,
             photo: user.photo ? user.photo : `https://placehold.co/100x100`,
             user: user.id,
+            personal: true,
           });
           user.readingList = newList.id;
           await user.save();

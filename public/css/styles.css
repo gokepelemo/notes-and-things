@@ -172,11 +172,12 @@ a.title {
 .app-footer-link {
   display: block;
   margin: 2rem 0;
-  width: auto;
+  width: fit-content;
 }
 
 .alert {
   margin-top: 1rem;
+  display: none;
 }
 
 .inline-author {

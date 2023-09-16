@@ -44,8 +44,7 @@
         </li>
       </ul>
       <div class="list-group">
-        <% let bookVotes={};
-           let notes={};
+        <% let bookVotes={}, notes={};
             vote.forEach((vote) => {
               let id = vote.book.id
               if (!bookVotes[id]) bookVotes[id] = 0

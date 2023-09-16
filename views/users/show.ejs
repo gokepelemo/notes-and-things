@@ -1,7 +1,7 @@
 <%- include('../partials/header.ejs') %>
 <%- include('../partials/nav.ejs') %>
 <div class="content">
-  <div class="row">
+  <div class="row align-items-center">
     <% if(userData.photo) { %>
     <div class="col-md-2">
       <img src="<%= userData.photo %>" class="img-list" />
@@ -22,9 +22,11 @@
           <li class="nav-item">
             <a class="nav-link text-body" aria-current="page" href="/notes"><span class="fas fa-note-sticky"></span> Notes</a>
           </li>
+          <% if(user && user.id === userData.id) { %>
           <li class="nav-item">
             <a class="nav-link text-body" aria-current="page" href="/users/<%= userData.id %>/edit"><span class="fas fa-pencil"></span> Edit</a>
           </li>
+          <% } %>
         </ul>
       </div>
     </div>
@@ -47,5 +49,57 @@
         </div>
       </div>
     </div>
-  </div>
-  <%- include('../partials/footer.ejs') %>
+    <div class="row book-list">
+      <div class="col-lg-12">
+        <% if (list.books.length) {%>
+        <ul class="nav nav-pills nav-list">
+          <li class="nav-item">
+            <a class="nav-link text-white bg-black active" aria-current="page" href="#">To Read</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-body" href="#">Recently Read</a>
+          </li>
+        </ul>
+        <div class="list-group">
+          <% let bookVotes={}, notes={};
+           vote.forEach((vote) => {
+              let id = vote.book.id;
+              if (!bookVotes[id]) bookVotes[id] = 0;
+              bookVotes[id] += 1;
+            });
+            note.forEach((item) => {
+              if (!notes[item.book.id]) notes[item.book.id] = 0;
+              notes[item.book.id] += 1;
+            });
+        %>
+          <% list.books.forEach((item) => {%>
+          <a href="/books/<%= item.slug %>" class="list-group-item list-group-item-action book-list-item" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="item-title mb-1"><%= item.name %></h5>
+              <div class="action-buttons">
+                <% if(user) {
+              %>
+                <form method="POST" action="/books/<%= item.id %>/votes" class="frm-action">
+                  <input type="hidden" name="user" value=<%= user.id %> />
+                  <input type="hidden" name="list" value=<%= list.id %> />
+                  <button type="submit" class="btn btn-light btn-action"><%= bookVotes[item.id] ? bookVotes[item.id] : 0 %><span class="fas fa-star"></span></button>
+                </form>
+                <form action="/books/<%= item.id %>/notes/new" method="GET" class="frm-action">
+                  <input name="list" type="hidden" value="<%= list.id %>" />
+                  <button type="submit" class="btn btn-light btn-action"><%= notes[item.id] ? notes[item.id] : 0 %><span class="fa-solid fa-note-sticky"></span></button>
+                </form>
+                <% } %>
+              </div>
+            </div>
+            <p class="mb-1 book-author"><%= item.author %></p>
+            <p class="mb-1"></p>
+          </a>
+          <% }) %>
+        </div>
+      </div>
+      <% } else { %>
+      <p>There are no books in this list.</p>
+      <a href="/lists/<%= list.id %>/edit"><button class="btn btn-primary">Add Books</button></a>
+      <% } %>
+    </div>
+    <%- include('../partials/footer.ejs') %>

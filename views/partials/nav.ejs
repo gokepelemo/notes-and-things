@@ -6,12 +6,14 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if (user) {%>
+      <li class="nav-item">
+        <a class="nav-link profile" title="Your Profile" href="/profile/<%= user.id %>"><%= user.name ? user.name : `Profile` %></a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           Actions
         </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/profile/<%= user.id %>">Profile</a></li>
           <li><a class="dropdown-item" href="/lists/new">Add a List</a></li>
           <li><a class="dropdown-item" href="/books/new">Add a Book</a></li>
           <li><a class="dropdown-item" href="/notes/new">Add a Note</a></li>
@@ -21,7 +23,7 @@
       <% if(user.role === "admin") {%>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Admin
+          Controls
         </a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/lists">Lists</a></li>

@@ -1,5 +1,4 @@
-<% if(typeof(message) != "undefined" && message.content) {%>
-<div class="alert <%= message.type === `failure` ? `alert-danger` : message.type === `success` ? `alert-success` : message.type === `info` ? `alert-info` : `alert-light` %>" role="alert">
-  <%= message.content %>
+<div class="alert" role="alert" id="alert">
+<button class="btn btn-light btn-action me-4" id="cancel-message">X</button>
+<span id="alert-content"></span>
 </div>
-<% } %>

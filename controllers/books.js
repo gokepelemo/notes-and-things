@@ -58,7 +58,7 @@ async function index(req, res, next) {
   try {
     const books = await Book.find({});
     res.render("books/index", {
-      title: `My Books`,
+      title: `All Books`,
       app: Defaults,
       books: books,
     });

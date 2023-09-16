@@ -10,12 +10,16 @@ const Defaults = require("../models/defaults");
 
 async function show(req, res, next) {
   try {
-    let list = await List.findById(req.params.id).populate('books');
+    let list = await List.findById(req.params.id).populate('books').populate('user');
+    if (list.personal) {
+      res.redirect(`/profile/${list.user.id}`);
+      return;
+    };
     let vote = await Vote.find({list: list.id}).populate('book');
     let note = await Note.find({list: list.id}).populate('book');
     res.render("lists/show", {
       app: Defaults,
-      title: `${list.name}'s Reading List`,
+      title: list.name,
       list: list,
       vote: vote,
       note: note,

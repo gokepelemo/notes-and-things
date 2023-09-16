@@ -18,8 +18,11 @@ const listSchema = new Schema({
     }],
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
     },
+    personal: {
+        type: Boolean,
+    }
 }, {
     timestamps: true,
 })
