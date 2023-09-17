@@ -96,12 +96,12 @@ async function editUser(req, res, next) {
     let userData = await User.findById(req.params.id)
       .populate("reading")
       .exec();
-    let book = await Book.find({});
+    let readingList = await List.findById(userData.readingList).populate("books");
     res.render(`users/edit`, {
       app: Defaults,
       title: `Edit Profile`,
       userData: userData,
-      book: book,
+      readingList: readingList,
     });
   } catch (err) {
     console.error(err);

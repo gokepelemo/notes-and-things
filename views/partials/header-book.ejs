@@ -14,10 +14,12 @@
   <script src="https://kit.fontawesome.com/a3303c17b7.js" crossorigin="anonymous"></script>
   <link rel='stylesheet' href='/css/styles.css' />
   <script defer src="/js/main.js" type="text/javascript"></script>
+  <meta property="og:site_name" content="Notes and Things" />
   <meta property="og:title" content="<%= title %>" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://notesandthings.com/" />
-  <meta property="og:description" content="Notes and Things enables people to share their reading activity with their communities and book clubs." />
+  <meta property="og:type" content="Book" />
+  <meta property="og:description" content="<%= title %> - A book on Notes and Things. Notes and Things enables people to share their reading activity with their communities and book clubs." />
+  <meta property="og:image" content="<%= book.photo %>" />
+  <meta property="og:url" content="https://notesandthings.com/book/<%= book.slug %>" />
 </head>
 
 <body>

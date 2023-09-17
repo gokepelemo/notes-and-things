@@ -11,9 +11,9 @@ async function home(req, res, next) {
   try {
   if (typeof(req.user) != undefined) {
     lists = await List.find({}).populate('user');
-  }
+  };
   let books = await Book.find({});
-  res.render("index", { app: Defaults, books: books, lists: lists, title: `Home`, message: {content: ""} });
+  res.render("index", { app: Defaults, books: books, lists: lists, title: `Home`, });
   } catch (err) {
     console.error(err)
   }

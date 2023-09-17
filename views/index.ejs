@@ -29,9 +29,9 @@
                   <span class="fas fa-share-nodes"></span> Share
                 </button>
                 <ul class="dropdown-menu">
-                  <span class="dropdown-item share-x"><span class="fa-brands fa-x-twitter"></span> X</span>
-                  <span class="dropdown-item share-facebook"><span class="fab fa-facebook-square"></span> Facebook</span>
-                  <span class="dropdown-item share-pinterest"><span class="fab fa-pinterest-square"></span> Pinterest</span>
+                  <span class="dropdown-item share-x" data-link="<%= `${app.url}/books/${item.slug}` %>" data-text="<%= `See notes and reading lists containing ${item.name} by ${item.author} on Notes and Things` %>" data-media="<%= item.photo %>"><span class="fa-brands fa-x-twitter"></span> X</span>
+                  <span class="dropdown-item share-facebook" data-link="<%= `${app.url}/books/${item.slug}` %>" data-text="<%= `See notes and reading lists containing ${item.name} by ${item.author} on Notes and Things` %>" data-media="<%= item.photo %>"><span class="fab fa-facebook-square"></span> Facebook</span>
+                  <span class="dropdown-item share-pinterest" data-link="<%= `${app.url}/books/${item.slug}` %>" data-text="<%= `See notes and reading lists containing ${item.name} by ${item.author} on Notes and Things` %>" data-media="<%= item.photo %>"><span class="fab fa-pinterest-square"></span> Pinterest</span>
                 </ul>
               </div>
               <button class="btn btn-secondary btn-sm notes-action" data-book="<%= item.id %>" data-slug="<%= item.slug %>"><span class="fas fa-note-sticky"></span> Notes</button>

@@ -21,7 +21,7 @@
       <% } %>
       <label for="reading">Currently Reading</label>
       <select name="reading" class="form-control" value="<%= userData.reading.id %>">
-      <% book.forEach((item) => { %>
+      <% readingList.books.forEach((item) => { %>
         <option value="<%= item.id %>" <%= userData.reading.id === item.id ? "selected" : "" %>><%= item.name %></option>
       <% }) %>
       </select>

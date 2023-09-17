@@ -252,7 +252,8 @@ a.title {
     display: none;
   }
   .user-nav,
-  .books-nav {
+  .books-nav,
+  .lists-nav {
     justify-content: center;
   }
   .currently-reading,

@@ -1,23 +1,23 @@
-<%- include('../partials/header.ejs') %>
+<%- include('../partials/header-book.ejs') %>
 <%- include('../partials/nav.ejs') %>
-<div class="content">
+<div class="content" vocab="https://schema.org/" typeof="Book">
   <div class="row">
     <% if(book.photo) { %>
     <div class="col-lg-3">
-      <img src="<%= book.photo %>" class="img-list" />
+      <img src="<%= book.photo %>" class="img-list" property="image" />
     </div>
     <% } %>
     <div class="col-lg-8<%= book.photo ? ' ps-4' : '' %>">
-      <h3 class="lead content-lead"><%= book.name %></h3>
-      <h5 class="book-author"><%= book.author %></h5>
+      <h3 class="lead content-lead" property="name"><%= book.name %></h3>
+      <h5 class="book-author" property="author"><%= book.author %></h5>
       <div class="entity-actions">
         <ul class="nav nav-pills books-nav">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-body" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><span class="fas fa-share-nodes"></span> Share</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item share-x" href="#"><span class="fa-brands fa-x-twitter"></span> X</a></li>
-              <li><a class="dropdown-item share-facebook" href="#"><span class="fab fa-facebook-square"></span> Facebook</a></li>
-              <li><a class="dropdown-item share-pinterest" href="#"><span class="fab fa-pinterest-square"></span> Pinterest</a></li>
+              <li><a class="dropdown-item share-x" href="#" data-link="<%= `${app.url}/books/${book.slug}` %>" data-text="<%= `See notes and reading lists containing ${book.name} by ${book.author} on Notes and Things` %>" data-media="<%= book.photo %>"><span class="fa-brands fa-x-twitter"></span> X</a></li>
+              <li><a class="dropdown-item share-facebook" href="#"  data-link="<%= `${app.url}/books/${book.slug}` %>" data-text="<%= `See notes and reading lists containing ${book.name} by ${book.author} on Notes and Things` %>" data-media="<%= book.photo %>"><span class="fab fa-facebook-square"></span> Facebook</a></li>
+              <li><a class="dropdown-item share-pinterest" href="#"  data-link="<%= `${app.url}/books/${book.slug}` %>" data-text="<%= `See notes and reading lists containing ${book.name} by ${book.author} on Notes and Things` %>" data-media="<%= book.photo %>"><span class="fab fa-pinterest-square"></span> Pinterest</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -46,7 +46,7 @@
             <a class="nav-link text-white bg-black active books-nav-link" aria-current="page" id="notes-btn">Notes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-body books-nav-link" id="book-list-btn">Book Lists</a>
+            <a class="nav-link text-body books-nav-link" id="book-list-btn">Reading Lists</a>
           </li>
         </ul>
         <div class="list-group" id="notes-view">
@@ -75,25 +75,25 @@
         <p>There are no notes added to this book.</p>
         <a href="/books/<%= book.id %>/notes/new"><button class="btn btn-secondary">Add Notes</button></a>
         <% } %>
-        </div>
-        <div class="list-group" id="book-list-view">
-          <% if(list.length) {
-          list.forEach((item) => { %>
-          <a class="list-group-item list-group-item-action book-list-item" aria-current="true" href="/lists/<%= item.id %>">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1"><%= item.name %></h5>
-            </div>
-          </a>
-          <% }) %>
-        </div>
-        <% } else { %>
-        <p>This book is not added to any lists.</p>
-        <a href="/books/<%= book.id %>/notes/new"><button class="btn btn-primary">Add to List</button></a>
-        <% } %>
       </div>
-      <% } else {%>
-      <p>There are no notes added to this book and it isn't on any book lists.</p>
-      <% }%>
+      <div class="list-group" id="book-list-view">
+        <% if(list.length) {
+          list.forEach((item) => { %>
+        <a class="list-group-item list-group-item-action book-list-item" aria-current="true" href="/lists/<%= item.id %>">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><%= item.name %></h5>
+          </div>
+        </a>
+        <% }) %>
+      </div>
+      <% } else { %>
+      <p>This book is not added to any lists.</p>
+      <a href="/books/<%= book.id %>/notes/new"><button class="btn btn-primary">Add to List</button></a>
+      <% } %>
     </div>
-    <a href="<%= prev ? prev : "/books" %>" class="app-footer-link btn btn-secondary btn-sm"><span class="fas fa-caret-left"></span> Back <%= prev ? "" : "to Books" %></a>
-    <%- include('../partials/footer.ejs') %>
+    <% } else {%>
+    <p>There are no notes added to this book and it isn't on any reading lists.</p>
+    <% }%>
+  </div>
+  <a href="<%= prev ? prev : "/books" %>" class="app-footer-link btn btn-secondary btn-sm"><span class="fas fa-caret-left"></span> Back <%= prev ? "" : "to Books" %></a>
+  <%- include('../partials/footer.ejs') %>

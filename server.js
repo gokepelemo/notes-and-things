@@ -3,7 +3,6 @@
 // todo: code share buttons
 // todo: code google books api integration
 // todo: code pagination on index pages
-// todo: code removing books from lists and books read
 
 const createError = require('http-errors');
 const express = require('express');

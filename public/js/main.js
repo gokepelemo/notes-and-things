@@ -17,7 +17,7 @@ function createMessage(msg, type) {
   $("#alert-content").html(msg);
   messagingPane.show();
   $("html, body").animate({ scrollTop: messagingPane });
-}
+};
 
 // handle notes/book lists on book detail view
 let bookViewLink = $(".books-nav-link");
@@ -75,7 +75,7 @@ if (readingProgress) {
       "#readingProgressDisplay"
     ).innerText = `${readingProgress.value}%`;
   });
-}
+};
 
 // add to list drop-down on index views
 let addToListActions = document.querySelectorAll(".add-to-list-action");
@@ -107,7 +107,7 @@ if (addToListActions) {
       });
     });
   });
-}
+};
 
 // link to books when notes are clicked
 let notesAction = document.querySelectorAll(".notes-action");
@@ -117,4 +117,27 @@ if (notesAction) {
       window.location.assign(`/books/${action.dataset.slug}#notes`);
     });
   });
-}
+};
+
+// share buttons
+let link, text, media, shareAction = $(".share-x,.share-facebook,.share-pinterest");
+shareAction.on("click", function(e) {
+  if (e.target.classList.contains("share-x")) {
+    link = e.target.dataset.link;
+    text = e.target.dataset.text;
+    media = e.target.dataset.media;
+    window.location.assign(`https://twitter.com/intent/tweet?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`);
+  };
+  if (e.target.classList.contains("share-facebook")) {
+    link = e.target.dataset.link;
+    text = e.target.dataset.text;
+    media = e.target.dataset.media;
+    window.location.assign(`http://facebook.com/dialog/feed?link=${encodeURIComponent(link)}&app_id=1064187921698537`);
+  };
+  if (e.target.classList.contains("share-pinterest")) {
+    link = e.target.dataset.link;
+    text = e.target.dataset.text;
+    media = e.target.dataset.media;
+    window.location.assign(`http://pinterest.com/pin/create/link/?url=${encodeURIComponent(link)}&description=${encodeURIComponent(text)}&media=${encodeURIComponent(media)}`);
+  };
+})
