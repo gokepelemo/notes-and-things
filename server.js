@@ -1,4 +1,7 @@
 // todo: code google books api integration
+// todo: mark a book read
+// todo: view notes in a book or list
+// todo: remove a book from a list
 
 const createError = require('http-errors');
 const express = require('express');

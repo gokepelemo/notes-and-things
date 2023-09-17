@@ -94,14 +94,13 @@ img {
   display: inline-block;
 }
 
-.book-list {
-  margin-top: 5vmin;
-}
-
 .new-book {
   margin: 1.5rem 0;
 }
 
+.notes-list,.book-list {
+  margin: 5vmin 0;
+}
 .nav-icon {
   margin: 0 0.5rem 0 2rem;
 }
@@ -213,6 +212,15 @@ a.title {
 
 .book-list-item {
   cursor: pointer;
+}
+
+.no-items {
+  margin: 1rem;
+}
+
+.list-book-action {
+  width: auto;
+  display: inline-block;
 }
 
 @media (max-width: 1100px) {

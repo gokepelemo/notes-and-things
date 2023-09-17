@@ -22,12 +22,14 @@
           <li class="nav-item">
             <a class="nav-link text-body" aria-current="page" href="#" target="_blank"><span class="fas fa-note-sticky"></span> Notes</a>
           </li>
+          <% if(user && list.user.id === user.id) { %>
           <li class="nav-item">
             <a class="nav-link text-body" aria-current="page" href="/lists/<%= list.id %>/edit"><span class="fas fa-plus"></span> Add Books</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-body" aria-current="page" href="/lists/<%= list.id %>/edit"><span class="fas fa-pencil"></span> Edit</a>
           </li>
+          <% } %>
         </ul>
       </div>
     </div>
@@ -47,8 +49,11 @@
         %>
       <% let mappedList = list.books.map((item) => item.id)
           list.booksRead.forEach((item) => {
-            console.log(mappedList.indexOf(item.id))
-              if(mappedList.indexOf(item.id) !== -1) list.books.splice(mappedList.indexOf(item.id),1);
+            let idx = mappedList.indexOf(item.id);
+              if(idx !== -1) {
+                mappedList.splice(idx,1);
+                list.books.splice(idx,1);
+              }
           });
       if (list.books.length) {%>
       <ul class="nav nav-pills nav-list lists-nav-link">
@@ -70,7 +75,7 @@
               <form method="POST" action="/books/<%= item.id %>/votes" class="frm-action">
                 <input type="hidden" name="user" value=<%= user.id %> />
                 <input type="hidden" name="list" value=<%= list.id %> />
-                <button type="submit" class="btn btn-light btn-action"><%= bookVotes[item.id] ? bookVotes[item.id] : 0 %><span class="fas fa-star"></span></button>
+                <button type="submit" class="btn btn-light btn-action"><%= bookVotes[item.id] ? bookVotes[item.id] : 0 %><span class="fas fa-thumbs-up"></span></button>
               </form>
               <form action="/books/<%= item.id %>/notes/new" method="GET" class="frm-action">
                 <input name="list" type="hidden" value="<%= list.id %>" />
@@ -80,12 +85,23 @@
             </div>
           </div>
           <p class="mb-1 book-author" property="author"><%= item.author %></p>
-          <p class="mb-1"></p>
+          <p class="mb-1">
+            <% if(user && list.user.id === user.id) {%>
+            <form action="/lists/<%= list.id %>?_method=PUT" method="POST" class="list-book-action">
+              <input name="booksRead" type="hidden" value="<%= item.id %>" />
+              <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-book"></span> Mark as Read</button>
+            </form>
+            <form action="/lists/<%= list.id %>/book?_method=DELETE" method="POST" class="list-book-action">
+              <input name="book" type="hidden" value="<%= item.id %>" />
+              <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-trash-can"></span> Remove from List</button>
+            </form>
+            <% } %>
+          </p>
         </a>
         <% }) %>
       </div>
       <% } else { %>
-      <p>There are no books in this list.</p>
+      <p class="no-items">There are no books on this list.</p>
       <a href="/lists/<%= list.id %>/edit"><button class="btn btn-primary">Add Books</button></a>
       <% } %>
       <div class="list-group" id="read-books-view">
@@ -110,15 +126,22 @@
             </div>
           </div>
           <p class="mb-1 book-author"><%= item.author %></p>
-          <p class="mb-1"></p>
+          <p class="mb-1">
+            <% if(user && list.user.id === user.id) {%>
+            <form action="/lists/<%= list.id %>?_method=PUT" method="POST">
+              <input name="booksRead" type="hidden" value="<%= item.id %>" />
+              <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-book-open-reader"></span> Mark as Unread</button>
+            </form>
+            <% } %>
+          </p>
         </a>
         <% }) %>
         <% } else { %>
-        <p>There are no read books in this list.</p>
+        <p class="no-items">There are no read books in this list.</p>
         <% } %>
       </div>
     </div>
-    <% if(user) {%>
+    <% if(user && user.role === "admin") {%>
     <a href="/lists" class="app-footer-link btn btn-secondary btn-sm"><span class="fas fa-caret-left"></span> Back to Lists</a>
     <% } %>
   </div>

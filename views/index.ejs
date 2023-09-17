@@ -9,7 +9,7 @@
         <% books.forEach((item) => { %>
         <a class="list-group-item list-group-item-action book-list-item" aria-current="true">
           <div class="trending-item d-flex w-100 justify-content-between">
-            <h5 class="trending-item item-title mb-1"><%= item.name %></h5>
+            <h5 data-slug="<%= item.slug %>" class="trending-item item-title mb-1 book-action"><%= item.name %></h5>
             <div class="action-buttons">
               <% if (user) { %>
               <div class="btn-group add-to-list">
@@ -39,8 +39,8 @@
           </div>
           <p class="mb-1 book-author"><%= item.author %></p>
           <p class="mb-1">
-            <span class="badge rounded-pill text-bg-secondary">On X Lists</span>
-            <span class="badge rounded-pill text-bg-secondary">In Y Notes</span>
+            <% if(booklists[item.id]) { %><span class="badge rounded-pill text-bg-secondary">On <%= booklists[item.id] ? booklists[item.id] : 0 %> Lists</span><% } %>
+            <% if(booknotes[item.id]) { %><span class="badge rounded-pill text-bg-secondary">In <%= booknotes[item.id] ? booknotes[item.id] : 0 %> Notes</span><% } %>
           </p>
         </a>
         <% }) %>

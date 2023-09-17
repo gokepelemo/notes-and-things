@@ -7,6 +7,7 @@ const List = require("../models/list");
 const Vote = require("../models/vote");
 const Note = require("../models/note");
 const Defaults = require("../models/defaults");
+const book = require("../models/book");
 
 function extractId(id) {
   return id.toString().replace('new ObjectId("', "").replace('")', "");
@@ -21,7 +22,7 @@ function deleteUser(req, res, next) {
 }
 
 async function show(req, res, next) {
-  let readingList,
+  let readingList = [],
     vote = [];
   try {
     let userData = await User.findById(req.params.id)
@@ -34,6 +35,7 @@ async function show(req, res, next) {
       readingList = await List.findById(userData.readingList)
         .populate("books")
         .populate("booksRead")
+        .populate("user")
         .exec();
       for (let i = 0; i < readingList.books.length; i++) {
         vote = vote.concat(
@@ -53,6 +55,7 @@ async function show(req, res, next) {
       userData: userData,
       list: readingList,
       vote: vote,
+      book: book,
       note: noteData,
     });
   } catch (err) {
@@ -96,11 +99,13 @@ async function editUser(req, res, next) {
     let userData = await User.findById(req.params.id)
       .populate("reading")
       .exec();
+    let book = await Book.find({});
     let readingList = await List.findById(userData.readingList).populate("books");
     res.render(`users/edit`, {
       app: Defaults,
       title: `Edit Profile`,
       userData: userData,
+      book: book,
       readingList: readingList,
     });
   } catch (err) {

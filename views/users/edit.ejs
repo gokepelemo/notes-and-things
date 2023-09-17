@@ -20,10 +20,16 @@
       </select>
       <% } %>
       <label for="reading">Currently Reading</label>
-      <select name="reading" class="form-control" value="<%= userData.reading.id %>">
-      <% readingList.books.forEach((item) => { %>
-        <option value="<%= item.id %>" <%= userData.reading.id === item.id ? "selected" : "" %>><%= item.name %></option>
-      <% }) %>
+      <select name="reading" class="form-control">
+        <% if (typeof readingList != "undefined") { %>
+        <% readingList.books.forEach((item) => { %>
+        <option value="<%= item.id %>" <%= typeof userData.reading != "undefined" ? userData.reading.id === item.id ? "selected" : "" : "" %>><%= item.name %></option>
+        <% }) %>
+        <% } else { %>
+        <% book.forEach((item) => { %>
+        <option value="<%= item.id %>" <%= typeof userData.reading != "undefined" ? userData.reading.id === item.id ? "selected" : "" : "" %>><%= item.name %></option>
+        <% }) %>
+        <% } %>
       </select>
       <label for="readingProgress">Reading Progress <span id="readingProgressDisplay"><%= userData.readingProgress %>%</span></label>
       <input type="range" name="readingProgress" class="form-range" id="readingProgress" value="<%= userData.readingProgress %>">

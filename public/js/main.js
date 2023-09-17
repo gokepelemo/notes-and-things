@@ -114,7 +114,7 @@ let notesAction = document.querySelectorAll(".notes-action");
 if (notesAction) {
   notesAction.forEach((action) => {
     action.addEventListener("click", function () {
-      window.location.assign(`/books/${action.dataset.slug}#notes`);
+      window.location.assign(`/books/${action.dataset.slug}#notes-view`);
     });
   });
 };
@@ -140,4 +140,11 @@ shareAction.on("click", function(e) {
     media = e.target.dataset.media;
     window.location.assign(`http://pinterest.com/pin/create/link/?url=${encodeURIComponent(link)}&description=${encodeURIComponent(text)}&media=${encodeURIComponent(media)}`);
   };
-})
+});
+
+// book title actions
+let bookListAction = $(".book-action");
+bookListAction.on("click", function(e) {
+  console.log(e.target)
+  window.location.assign(`/books/${e.target.dataset.slug}`)
+});

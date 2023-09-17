@@ -29,7 +29,7 @@
         </ul>
       </div>
     </div>
-    <div class="row book-list">
+    <div class="row notes-list">
       <div class="col-md-12 align-middle">
         <% let noteVotes = {};
         vote.forEach((item) => {
@@ -63,16 +63,16 @@
             </div>
             <p class="mb-1"><%= item.content %></p>
             <p class="mb-1">
-              <span class="badge rounded-pill text-bg-secondary note-author"><%= item.user.name %></span>
+              <span class="badge rounded-pill text-bg-secondary note-author" data-author="<%= item.user.id %>"><%= item.user.name %></span>
               <% if(item.list) {%>
-              <span class="badge rounded-pill text-bg-secondary note-list"><%= item.list.name %></span>
+              <span class="badge rounded-pill text-bg-secondary note-list" data-list="<%= item.list.id %>"><%= item.list.name %></span>
               <% } %>
             </p>
           </a>
           <% }); %>
         </div>
         <%} else {%>
-        <p>There are no notes added to this book.</p>
+        <p class="no-items">There are no notes added to this book.</p>
         <a href="/books/<%= book.id %>/notes/new"><button class="btn btn-secondary">Add Notes</button></a>
         <% } %>
       </div>
@@ -87,7 +87,7 @@
         <% }) %>
       </div>
       <% } else { %>
-      <p>This book is not added to any lists.</p>
+      <p class="no-items">This book is not added to any lists.</p>
       <a href="/books/<%= book.id %>/notes/new"><button class="btn btn-primary">Add to List</button></a>
       <% } %>
     </div>

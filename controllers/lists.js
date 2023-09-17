@@ -38,7 +38,7 @@ async function show(req, res, next) {
 
 async function index(req, res, next) {
   try {
-    let list = await List.find({});
+    let list = await List.find({}).populate('user');
     res.render("lists/index", {
       app: Defaults,
       title: `My Lists`,
@@ -69,7 +69,6 @@ async function update(req, res, next) {
     }
   }
   if (req.body.booksRead) {
-    console.log(list.booksRead);
     let mappedList = list.booksRead.map((item) => extractId(item));
     if (mappedList.indexOf(req.body.booksRead) === -1) {
       list.booksRead.push(req.body.booksRead);

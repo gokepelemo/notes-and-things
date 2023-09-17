@@ -14,9 +14,9 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-body" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><span class="fas fa-share-nodes"></span> Share</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item share-x" href="#"><span class="fa-brands fa-x-twitter"></span> X</a></li>
-              <li><a class="dropdown-item share-facebook" href="#"><span class="fab fa-facebook-square"></span> Facebook</a></li>
-              <li><a class="dropdown-item share-pinterest" href="#"><span class="fab fa-pinterest-square"></span> Pinterest</a></li>
+              <li><a class="dropdown-item share-x" href="#" data-link="<%= `${app.url}/profile/${userData.id}` %>" data-text="<%= `See ${userData.name}'s Reading List on Notes and Things` %>" data-media="<%= userData.photo %>"><span class="fa-brands fa-x-twitter"></span> X</a></li>
+              <li><a class="dropdown-item share-facebook" href="#" data-link="<%= `${app.url}/profile/${userData.id}` %>" data-text="<%= `See ${userData.name}'s Reading List on Notes and Things` %>" data-media="<%= userData.photo %>"><span class="fab fa-facebook-square"></span> Facebook</a></li>
+              <li><a class="dropdown-item share-pinterest" href="#" data-link="<%= `${app.url}/profile/${userData.id}` %>" data-text="<%= `See ${userData.name}'s Reading List on Notes and Things` %>" data-media="<%= userData.photo %>"><span class="fab fa-pinterest-square"></span> Pinterest</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -30,6 +30,7 @@
         </ul>
       </div>
     </div>
+    <% if(userData.reading) { %>
     <div class="col-sm-6">
       <h5 class="pt-4 currently-reading">Currently Reading</h5>
       <div class="card mb-3">
@@ -47,6 +48,7 @@
         <div class="progress" role="progressbar" aria-label="Reading Progress" aria-valuenow="<%= userData.readingProgress %>" aria-valuemin="0" aria-valuemax="100">
           <div class="progress-bar bg-success" style="width: <%= `${userData.readingProgress}%` %>"></div>
         </div>
+        <% } %>
       </div>
     </div>
     <div class="row book-list">
@@ -73,9 +75,19 @@
         <% let mappedList = list.books.map((item) => item.id)
           if (list.books.length) {
             list.booksRead.forEach((item) => {
-              if(mappedList.indexOf(item.id) !== -1) list.books.splice(mappedList.indexOf(item.id),1);
+              let idx = mappedList.indexOf(item.id);
+              if(idx !== -1) {
+                mappedList.splice(idx,1);
+                list.books.splice(idx,1);
+              }
             });
-            if(mappedList.indexOf(userData.reading.id)) list.books.splice(mappedList.indexOf(userData.reading.id),1);
+            if (typeof userData.reading != "undefined") {
+              let idx = mappedList.indexOf(userData.reading.id);
+              if(idx !== -1) {
+                mappedList.splice(idx,1);
+                list.books.splice(idx,1);
+              }
+            }
           %>
 
         <div class="list-group" id="to-read-books-view">
@@ -89,7 +101,7 @@
                 <form method="POST" action="/books/<%= item.id %>/votes" class="frm-action">
                   <input type="hidden" name="user" value=<%= user.id %> />
                   <input type="hidden" name="list" value=<%= list.id %> />
-                  <button type="submit" class="btn btn-light btn-action"><%= bookVotes[item.id] ? bookVotes[item.id] : 0 %><span class="fas fa-star"></span></button>
+                  <button type="submit" class="btn btn-light btn-action"><%= bookVotes[item.id] ? bookVotes[item.id] : 0 %><span class="fas fa-thumbs-up"></span></button>
                 </form>
                 <form action="/books/<%= item.id %>/notes/new" method="GET" class="frm-action">
                   <input name="list" type="hidden" value="<%= list.id %>" />
@@ -99,7 +111,18 @@
               </div>
             </div>
             <p class="mb-1 book-author"><%= item.author %></p>
-            <p class="mb-1"></p>
+            <p class="mb-1">
+              <% if(user && list.user.id === user.id) {%>
+              <form action="/lists/<%= list.id %>?_method=PUT" method="POST" class="list-book-action">
+                <input name="booksRead" type="hidden" value="<%= item.id %>" />
+                <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-book"></span> Mark as Read</button>
+              </form>
+              <form action="/lists/<%= list.id %>/book?_method=DELETE" method="POST" class="list-book-action">
+                <input name="book" type="hidden" value="<%= item.id %>" />
+                <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-trash-can"></span> Remove from List</button>
+              </form>
+              <% } %>
+            </p>
           </a>
           <% }) %>
           <% } else { %>
@@ -129,13 +152,20 @@
               </div>
             </div>
             <p class="mb-1 book-author"><%= item.author %></p>
-            <p class="mb-1"></p>
+            <p class="mb-1">
+              <% if(user && list.user.id === user.id) {%>
+              <form action="/lists/<%= list.id %>?_method=PUT" method="POST">
+                <input name="booksRead" type="hidden" value="<%= item.id %>" />
+                <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-book-open-reader"></span> Mark as Unread</button>
+              </form>
+              <% } %>
+            </p>
           </a>
           <% }) %>
           <% } else { %>
-          <p>There are no read books in this list.</p>
+          <p class="no-items">There are no read books in this reading list.</p>
         </div>
-          <% } %>
+        <% } %>
       </div>
     </div>
     <%- include('../partials/footer.ejs') %>

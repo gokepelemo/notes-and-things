@@ -13,7 +13,7 @@ function generateSlug(txt) {
     .toLowerCase()
     .replace(/[!@#$%^&*()_+:]/g, "")
     .split(" ");
-  const articles = ["a", "an", "the", "of"];
+  const articles = ["a", "an", "the", "of", "in"];
   articles.forEach((item) => {
     if (txt.indexOf(item) !== -1) txt.splice(txt.indexOf(item), 1);
   });
