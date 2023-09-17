@@ -107,8 +107,8 @@
           <a href="/lists/<%= list.id %>/edit"><button class="btn btn-primary">Add Books</button></a>
           <% } %>
         </div>
-        <% if (list.booksRead.length) {%>
         <div class="list-group" id="read-books-view">
+          <% if (list.booksRead.length) {%>
           <% list.booksRead.forEach((item) => {%>
           <a href="/books/<%= item.slug %>" class="list-group-item list-group-item-action book-list-item" aria-current="true">
             <div class="d-flex w-100 justify-content-between">
@@ -134,8 +134,8 @@
           <% }) %>
           <% } else { %>
           <p>There are no read books in this list.</p>
-          <% } %>
         </div>
+          <% } %>
       </div>
     </div>
     <%- include('../partials/footer.ejs') %>
