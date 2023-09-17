@@ -6,7 +6,6 @@
       <h3 class="lead content-lead mb-4"><%= title %></h3>
       <ul>
         <% note.forEach((item) => { %>
-        <% console.log(item.user.id)%>
         <% if(user.role === "admin") { %>
         <li>
           <a href="/notes/<%= item.id %>"><%= item.title %></a>

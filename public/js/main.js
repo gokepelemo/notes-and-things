@@ -145,6 +145,5 @@ shareAction.on("click", function(e) {
 // book title actions
 let bookListAction = $(".book-action");
 bookListAction.on("click", function(e) {
-  console.log(e.target)
   window.location.assign(`/books/${e.target.dataset.slug}`)
 });
