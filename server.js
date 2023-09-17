@@ -2,8 +2,8 @@
 // todo: use ajax for likes and stars
 // todo: code share buttons
 // todo: code google books api integration
-// todo: finalize profile page and read/to read logic
 // todo: code pagination on index pages
+// todo: code removing books from lists and books read
 
 const createError = require('http-errors');
 const express = require('express');

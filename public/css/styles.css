@@ -12,6 +12,7 @@ body {
 
 a {
   color: var(--primary);
+  cursor: pointer;
 }
 
 form {
@@ -193,7 +194,9 @@ a.title {
   padding-left: 0;
 }
 
-.add-to-list,.add-to-list-action,.item-title {
+.add-to-list,
+.add-to-list-action,
+.item-title {
   cursor: pointer;
 }
 
@@ -201,6 +204,15 @@ a.title {
   font-weight: bold;
   font-size: 1.25rem;
   margin: 0.5rem 0;
+}
+
+#book-list-view,
+#read-books-view {
+  display: none;
+}
+
+.book-list-item {
+  cursor: pointer;
 }
 
 @media (max-width: 1100px) {
@@ -239,10 +251,12 @@ a.title {
   .add-to-list {
     display: none;
   }
-  .user-nav {
+  .user-nav,
+  .books-nav {
     justify-content: center;
   }
-  .currently-reading {
+  .currently-reading,
+  p.new-note {
     text-align: center;
   }
 }

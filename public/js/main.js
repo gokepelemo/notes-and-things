@@ -1,7 +1,7 @@
 // success/failure/alert messaging
 let messagingPane = $(".alert");
 let messagingClose = $("#cancel-message");
-messagingClose.on("click", function () {
+messagingClose.on("click", function (e) {
   messagingPane.hide();
 });
 function createMessage(msg, type) {
@@ -18,6 +18,54 @@ function createMessage(msg, type) {
   messagingPane.show();
   $("html, body").animate({ scrollTop: messagingPane });
 }
+
+// handle notes/book lists on book detail view
+let bookViewLink = $(".books-nav-link");
+bookViewLink.on("click", function (e) {
+  if (e.target.id === "book-list-btn") {
+    $("#book-list-btn")
+      .addClass("bg-black active text-white")
+      .removeClass("text-body");
+    $("#notes-btn")
+      .addClass("text-body")
+      .removeClass("bg-black active text-white");
+    $("#notes-view").hide();
+    $("#book-list-view").show();
+  } else {
+    $("#notes-btn")
+      .addClass("bg-black active text-white")
+      .removeClass("text-body");
+    $("#book-list-btn")
+      .addClass("text-body")
+      .removeClass("bg-black active text-white");
+    $("#book-list-view").hide();
+    $("#notes-view").show();
+  }
+});
+
+// handle read/to read on list detail view
+let bookNav = $(".lists-nav-link,.user-nav-link");
+bookNav.on("click", function (e) {
+  if (e.target.id === "read-books-btn") {
+    $("#read-books-btn")
+      .addClass("bg-black active text-white")
+      .removeClass("text-body");
+    $("#to-read-books-btn")
+      .addClass("text-body")
+      .removeClass("bg-black active text-white");
+    $("#to-read-books-view").hide();
+    $("#read-books-view").show();
+  } else if (e.target.id === "to-read-books-btn") {
+    $("#to-read-books-btn")
+      .addClass("bg-black active text-white")
+      .removeClass("text-body");
+    $("#read-books-btn")
+      .addClass("text-body")
+      .removeClass("bg-black active text-white");
+    $("#read-books-view").hide();
+    $("#to-read-books-view").show();
+  }
+});
 
 // live update of the progress indicator on the edit profile view
 let readingProgress = document.querySelector("#readingProgress");
@@ -39,7 +87,7 @@ if (addToListActions) {
         url: `/lists/${action.dataset.list}?_method=PUT`,
         data: { books: action.dataset.book },
         success: createMessage(
-          `Added <strong>${action.dataset.booktitle}</strong> to <strong>${action.innerText}</strong>`,
+          `Added <strong>${action.dataset.booktitle}</strong> to <strong><a href=/lists/${action.dataset.list}>${action.innerText}</a></strong>`,
           "success"
         ),
         statusCode: {

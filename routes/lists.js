@@ -9,6 +9,7 @@ router.get('/new', ensureLoggedIn, listsCtrl.new);
 router.delete('/:id', ensureLoggedIn, listsCtrl.delete);
 router.get('/:id/edit', ensureLoggedIn, listsCtrl.edit);
 router.get('/:id', listsCtrl.show);
-router.put('/:id', ensureLoggedIn, listsCtrl.update);
+router.put('/:id', listsCtrl.update);
+router.delete('/:id/book', ensureLoggedIn, listsCtrl.removeBook);
 
 module.exports = router;

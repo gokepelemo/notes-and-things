@@ -24,7 +24,7 @@ passport.use(
         });
         if (!user.readingList) {
           newList = await List.create({
-            name: user.name,
+            name: `${user.name}'s Reading List`,
             photo: user.photo ? user.photo : `https://placehold.co/100x100`,
             user: user.id,
             personal: true,

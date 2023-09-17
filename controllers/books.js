@@ -9,7 +9,10 @@ const List = require("../models/list");
 const Defaults = require("../models/defaults");
 
 function generateSlug(txt) {
-  txt = txt.toLowerCase().replace(/[!@#$%^&*()_+:]/g, "").split(" ");
+  txt = txt
+    .toLowerCase()
+    .replace(/[!@#$%^&*()_+:]/g, "")
+    .split(" ");
   const articles = ["a", "an", "the", "of"];
   articles.forEach((item) => {
     if (txt.indexOf(item) !== -1) txt.splice(txt.indexOf(item), 1);
@@ -19,6 +22,8 @@ function generateSlug(txt) {
 }
 
 async function show(req, res, next) {
+  let list = [],
+    lists = [];
   try {
     let book = (await Book.findOne({ slug: req.params.id }))
       ? await Book.findOne({ slug: req.params.id })
@@ -26,7 +31,16 @@ async function show(req, res, next) {
     let note = await Note.find({ book: book.id })
       .populate("user")
       .populate("list");
-    let vote = await Vote.find({ note }).populate('note');
+    let vote = await Vote.find({ note }).populate("note").exec();
+    let allLists = await List.find({}).populate("books").exec();
+    allLists.forEach((item) => {
+      item.books.forEach((bookCheck) => {
+        if (bookCheck.id === book.id) list.push(item.id);
+      });
+    });
+    for (let i = 0; i < list.length; i++) {
+      lists.push(await List.findById(list[i]).exec());
+    }
     if (book.slug) {
       res.set({
         Link: `<${req.protocol}://${req.headers.host}/books/${book.id}>; rel="canonical"`,
@@ -37,6 +51,7 @@ async function show(req, res, next) {
         book: book,
         note: note,
         vote: vote,
+        list: lists,
         prev: req.headers.referer,
       });
     } else {

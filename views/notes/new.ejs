@@ -2,7 +2,7 @@
 <%- include('../partials/nav.ejs') %>
 <div class="content">
   <h3 class="lead content-lead"><%= title %></h3>
-  <p>Add a note to <%= book.name %> <span class="book-author inline-author"><%= book.author %></span></p>
+  <p class="new-note">Add a note to <%= book.name %> <span class="book-author inline-author"><%= book.author %></span></p>
   <div class="form-group">
     <div class="new-note">
       <form method="POST" action="/notes" class="">
@@ -15,7 +15,7 @@
         <input type="text" name="title" class="form-control" />
         <label for="content">Content</label>
         <textarea name="content" class="form-control"></textarea>
-        <button type="submit" class="btn btn-primary">Add a Note</button>
+        <button type="submit" class="btn btn-secondary">Add a Note</button>
       </form>
     </div>
   </div>

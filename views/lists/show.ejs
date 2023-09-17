@@ -14,9 +14,9 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-body" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><span class="fas fa-share-nodes"></span> Share</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#"><span class="fa-brands fa-x-twitter"></span> X</a></li>
-              <li><a class="dropdown-item" href="#"><span class="fab fa-facebook-square"></span> Facebook</a></li>
-              <li><a class="dropdown-item" href="#"><span class="fab fa-pinterest-square"></span> Pinterest</a></li>
+              <li><a class="dropdown-item share-x" href="#"><span class="fa-brands fa-x-twitter"></span> X</a></li>
+              <li><a class="dropdown-item share-facebook" href="#"><span class="fab fa-facebook-square"></span> Facebook</a></li>
+              <li><a class="dropdown-item share-pinterest" href="#"><span class="fab fa-pinterest-square"></span> Pinterest</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -34,17 +34,7 @@
   </div>
   <div class="row book-list">
     <div class="col-lg-12">
-      <% if (list.books.length) {%>
-      <ul class="nav nav-pills nav-list">
-        <li class="nav-item">
-          <a class="nav-link text-white bg-black active" aria-current="page" href="#">To Read</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-body" href="#">Recently Read</a>
-        </li>
-      </ul>
-      <div class="list-group">
-        <% let bookVotes={}, notes={};
+      <% let bookVotes={}, notes={};
             vote.forEach((vote) => {
               let id = vote.book.id
               if (!bookVotes[id]) bookVotes[id] = 0
@@ -55,6 +45,21 @@
               notes[note.book.id] += 1
             });
         %>
+      <% let mappedList = list.books.map((item) => item.id)
+          list.booksRead.forEach((item) => {
+            console.log(mappedList.indexOf(item.id))
+              if(mappedList.indexOf(item.id) !== -1) list.books.splice(mappedList.indexOf(item.id),1);
+          });
+      if (list.books.length) {%>
+      <ul class="nav nav-pills nav-list lists-nav-link">
+        <li class="nav-item">
+          <a class="nav-link text-white bg-black active" aria-current="page" id="to-read-books-btn">To Read</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-body" id="read-books-btn">Read</a>
+        </li>
+      </ul>
+      <div class="list-group" id="to-read-books-view">
         <% list.books.forEach((item) => {%>
         <a href="/books/<%= item.slug %>" class="list-group-item list-group-item-action book-list-item" aria-current="true">
           <div class="d-flex w-100 justify-content-between">
@@ -79,11 +84,40 @@
         </a>
         <% }) %>
       </div>
+      <% } else { %>
+      <p>There are no books in this list.</p>
+      <a href="/lists/<%= list.id %>/edit"><button class="btn btn-primary">Add Books</button></a>
+      <% } %>
+      <% if (list.booksRead.length) {%>
+      <div class="list-group" id="read-books-view">
+        <% list.booksRead.forEach((item) => {%>
+        <a href="/books/<%= item.slug %>" class="list-group-item list-group-item-action book-list-item" aria-current="true">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="item-title mb-1"><%= item.name %></h5>
+            <div class="action-buttons">
+              <% if(user) {
+              %>
+              <form method="POST" action="/books/<%= item.id %>/votes" class="frm-action">
+                <input type="hidden" name="user" value=<%= user.id %> />
+                <input type="hidden" name="list" value=<%= list.id %> />
+                <button type="submit" class="btn btn-light btn-action"><%= bookVotes[item.id] ? bookVotes[item.id] : 0 %><span class="fas fa-star"></span></button>
+              </form>
+              <form action="/books/<%= item.id %>/notes/new" method="GET" class="frm-action">
+                <input name="list" type="hidden" value="<%= list.id %>" />
+                <button type="submit" class="btn btn-light btn-action"><%= notes[item.id] ? notes[item.id] : 0 %><span class="fa-solid fa-note-sticky"></span></button>
+              </form>
+              <% } %>
+            </div>
+          </div>
+          <p class="mb-1 book-author"><%= item.author %></p>
+          <p class="mb-1"></p>
+        </a>
+        <% }) %>
+        <% } else { %>
+        <p>There are no read books in this list.</p>
+        <% } %>
+      </div>
     </div>
-    <% } else { %>
-    <p>There are no books in this list.</p>
-    <a href="/lists/<%= list.id %>/edit"><button class="btn btn-primary">Add Books</button></a>
-    <% } %>
     <a href="/lists" class="app-footer-link btn btn-secondary btn-sm"><span class="fas fa-caret-left"></span> Back to Lists</a>
   </div>
-      <%- include('../partials/footer.ejs') %>
+  <%- include('../partials/footer.ejs') %>
