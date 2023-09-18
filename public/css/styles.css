@@ -98,7 +98,8 @@ img {
   margin: 1.5rem 0;
 }
 
-.notes-list,.book-list {
+.notes-list,
+.book-list {
   margin: 5vmin 0;
 }
 .nav-icon {
@@ -141,7 +142,8 @@ h1.title {
   font: 500 3rem "JetBrains Mono", Arial, sans-serif;
 }
 
-a.title,a.card-title {
+a.title,
+a.card-title {
   text-decoration: none;
 }
 
@@ -230,6 +232,15 @@ a.title,a.card-title {
   display: inline-block;
 }
 
+.book-search {
+  margin: 0;
+}
+
+.index-list-item {
+  text-decoration: none;
+  display: inline-block;
+}
+
 @media (max-width: 1100px) {
   body {
     padding: 20px 0 0 0;
@@ -251,10 +262,11 @@ a.title,a.card-title {
     text-align: center;
     width: 100%;
   }
-  h5.book-author {
-    text-align: center;
-  }
-  .app-footer-link {
+  h5.book-author,
+  .app-footer-link,
+  .currently-reading,
+  p.new-note,
+  .card-body {
     text-align: center;
   }
   .action-buttons {
@@ -270,9 +282,5 @@ a.title,a.card-title {
   .books-nav,
   .lists-nav {
     justify-content: center;
-  }
-  .currently-reading,
-  p.new-note,.card-body {
-    text-align: center;
   }
 }

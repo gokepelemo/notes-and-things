@@ -3,10 +3,6 @@
 <div class="content">
   <h3 class="lead content-lead"><%= title %></h3>
   <div class="form-group">
-    <form>
-      <input type="text" name="search" class="form-control" />
-      <button type="submit" id="search" class="btn btn-primary">Search</button>
-    </form>
     <div class="new-book">
       <form method="POST" action="/books">
         <input type="hidden" value="<%= user.id %>" name="user" />
@@ -14,12 +10,14 @@
         <input type="text" name="name" class="form-control" />
         <label for="book-name">Book Author</label>
         <input type="text" name="author" class="form-control" />
-        <label for="book-image">Image URL</label>
+        <label for="book-image">Photo</label>
         <input type="text" name="photo" class="form-control" />
         <label for="book-image">ISBN</label>
         <input type="text" name="isbn" class="form-control" />
+        <% if (user && user.role === "admin") { %>
         <label for="book-buy-link">Buy Link</label>
         <input type="text" name="buy" class="form-control" />
+        <% } %>
         <button type="submit" class="btn btn-primary">Add</button>
       </form>
     </div>

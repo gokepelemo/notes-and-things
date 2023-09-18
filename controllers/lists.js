@@ -18,6 +18,7 @@ async function show(req, res, next) {
       .populate("books")
       .populate("user")
       .populate("booksRead");
+    // if it's a personal list, it should be viewed on the user's profile
     if (list.personal) {
       res.redirect(`/profile/${list.user.id}`);
       return;
@@ -41,7 +42,7 @@ async function index(req, res, next) {
     let list = await List.find({}).populate('user');
     res.render("lists/index", {
       app: Defaults,
-      title: `My Lists`,
+      title: `All Lists`,
       list: list,
     });
   } catch (err) {
@@ -116,7 +117,7 @@ async function deleteList(req, res, next) {
 }
 
 function newList(req, res, next) {
-  res.render("lists/new", { app: Defaults, title: `New List` });
+  res.render("lists/new", { app: Defaults, title: `New Reading List` });
 }
 
 async function editList(req, res, next) {
@@ -125,7 +126,7 @@ async function editList(req, res, next) {
     let books = await Book.find({});
     res.render("lists/edit", {
       app: Defaults,
-      title: `Edit ${list.name}`,
+      title: `Update - ${list.name}`,
       list: list,
       books: books,
     });

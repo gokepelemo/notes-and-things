@@ -9,11 +9,6 @@ router.get("/auth/google", function (req, res, next) {
   next();
 });
 
-router.get("/logout", function (req, res, next) {
-  res.cookie("redirect", req.headers.referer);
-  next();
-});
-
 router.get(
   "/auth/google",
   passport.authenticate("google", {
@@ -35,8 +30,7 @@ router.get(
 );
 router.get("/logout", function (req, res) {
   req.logout(function () {
-    let redirect = req.cookies.redirect;
-    res.redirect(redirect);
+    res.redirect("/");
   });
 });
 

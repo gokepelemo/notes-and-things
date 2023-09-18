@@ -20,9 +20,11 @@
               <li><a class="dropdown-item share-pinterest" href="#"  data-link="<%= `${app.url}/books/${book.slug}` %>" data-text="<%= `See notes and reading lists containing ${book.name} by ${book.author} on Notes and Things` %>" data-media="<%= book.photo %>"><span class="fab fa-pinterest-square"></span> Pinterest</a></li>
             </ul>
           </li>
+          <% if(typeof book.buy !== "undefined") {%>
           <li class="nav-item">
             <a class="nav-link text-body" aria-current="page" href="<%= book.buy %>" target="_blank"><span class="fas fa-cart-shopping"></span> Buy</a>
           </li>
+          <% } %>
           <li class="nav-item">
             <a class="nav-link text-body" aria-current="page" href="/books/<%= book.id %>/notes/new"><span class="fas fa-plus"></span> Add a Note</a>
           </li>
@@ -100,6 +102,6 @@
     <% } else {%>
     <p>There are no notes added to this book and it isn't on any reading lists.</p>
     <% }%>
-  </div>
   <a href="<%= prev ? prev : "/books" %>" class="app-footer-link btn btn-secondary btn-sm"><span class="fas fa-caret-left"></span> Back <%= prev ? "" : "to Books" %></a>
+  </div>
   <%- include('../partials/footer.ejs') %>

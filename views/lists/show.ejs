@@ -20,7 +20,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-body" aria-current="page" href="#" target="_blank"><span class="fas fa-note-sticky"></span> Notes</a>
+            <a class="nav-link text-body" aria-current="page" href="/lists/<%= list.id %>/notes"><span class="fas fa-note-sticky"></span> Notes</a>
           </li>
           <% if(user && list.user.id === user.id) { %>
           <li class="nav-item">

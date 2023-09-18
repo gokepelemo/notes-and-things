@@ -4,26 +4,49 @@
   <div class="row note-list">
     <div class="col">
       <h3 class="lead content-lead mb-4"><%= title %></h3>
-      <ul>
+      <% if(note.length) { %>
+      <ul class="list-group">
         <% note.forEach((item) => { %>
-        <% if(user.role === "admin") { %>
-        <li>
-          <a href="/notes/<%= item.id %>"><%= item.title %></a>
+        <% if(user && user.role === "admin") { %>
+        <li class="list-group-item">
           <form method="POST" action="/notes/<%= item.id %>?_method=DELETE" class="frm-action">
             <button type="submit" class="btn btn-light btn-action">X</button>
           </form>
+          <a href="/notes/<%= item.id %>" class="index-list-item">
+            <h5><%= item.title %></h5>
+          </a>
+          <p class="mb-1"><%= item.content %></p>
+          <p class="mb-1">
+            <span class="badge rounded-pill text-bg-secondary note-author" data-author="<%= item.user.id %>"><%= item.user.name %></span>
+            <% if(item.list) {%>
+              <span class="badge rounded-pill text-bg-secondary note-list" data-list="<%= item.list.id %>"><%= item.list.name %></span>
+            <% } %>
+          </p>
         </li>
-        <% } else if (user.role === "member" && item.user.id === user.id) {%>
-        <li>
-          <a href="/notes/<%= item.id %>"><%= item.title %></a>
+        <% } else if (user && user.role === "member" && item.user.id === user.id) {%>
+        <li class="list-group-item">
           <form method="POST" action="/notes/<%= item.id %>?_method=DELETE" class="frm-action">
             <button type="submit" class="btn btn-light btn-action">X</button>
           </form>
+          <a href="/notes/<%= item.id %>" class="index-list-item">
+            <h5><%= item.title %></h5>
+          </a>
+          <p class="mb-1"><%= item.content %></p>
+          <p class="mb-1">
+            <span class="badge rounded-pill text-bg-secondary note-author" data-author="<%= item.user.id %>"><%= item.user.name %></span>
+            <% if(item.list) {%>
+              <span class="badge rounded-pill text-bg-secondary note-list" data-list="<%= item.list.id %>"><%= item.list.name %></span>
+            <% } %>
+          </p>
         </li>
         <% } %>
         <% })%>
       </ul>
+      <% } else { %>
+      <p>There are no notes<% type === `user` ? ` from this user` : type === `list` ? ` on this list` : `` %>.</p>
+      <% } %>
     </div>
   </div>
+  <a href="<%= type === `user` ? `/profile/${userData.id}` : `/` %>" class="app-footer-link btn btn-secondary btn-sm"><span class="fas fa-caret-left"></span> Back</a>
 </div>
 <%- include('../partials/footer.ejs') %>

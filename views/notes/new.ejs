@@ -8,7 +8,7 @@
       <form method="POST" action="/notes" class="">
         <input type="hidden" value="<%= user.id %>" name="user" />
         <input type="hidden" value="<%= book.id %>" name="book" />
-        <% if (list) {%>
+        <% if (typeof list != "undefined") {%>
         <input type="hidden" value="<%= list %>" name="list" />
         <% } %>
         <label for="title">Title</label>

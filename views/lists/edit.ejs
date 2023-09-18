@@ -1,31 +1,32 @@
 <%- include('../partials/header.ejs') %>
 <%- include('../partials/nav.ejs') %>
 <div class="content">
-<h3 class="lead content-lead"><%= `Edit - ${list.name}` %></h3>
+<h3 class="lead content-lead"><%= list.name %></h3>
 <% if (user) {%>
 <div class="form-group">
 <form method="POST" action="/lists/<%= list.id %>?_method=PUT" class="list-edit mt-4">
 <input type="hidden" value="<%= user.id %>" name="user" />
-<label for="name">List Name</label>
+<label for="name" class="fw-bold">List Name</label>
 <input type="text" name="name" value="<%= list.name %>" class="form-control" />
-<label for="books-added">Books in the List</label>
+<label for="photo" class="fw-bold">Photo</label>
+<input type="text" name="photo" value="<%= list.photo %>" class="form-control" />
+<label for="books-added" class="fw-bold">Books in the Reading List</label>
 <% if(list.books.length) {%>
-<ul name="books-added">
+<ul name="books-added" class="list-group mb-4">
 <% list.books.forEach((item) => { %>
-<li><%= item.name %></li>
+<li class="list-group-item"><%= item.name %></li>
 <% }) %>
 </ul>
 <% } else { %>
 <p>There are no books in this list yet.</p>
 <% } %>
-<label for="books">Add a Book</label>
+<label for="books" class="fw-bold">Add from the Book Catalog</label>
 <select name="books" class="form-control">
+<option></option>
 <% books.forEach((item) => {%>
 <option value="<%= item.id %>"><%= item.name %></option>
 <% }) %>
 </select>
-<label for="photo">Image URL</label>
-<input type="text" name="photo" value="<%= list.photo %>" class="form-control" />
 <button type="submit" class="btn btn-primary">Update List</button>
 </form>
 </div>

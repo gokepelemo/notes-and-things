@@ -1,5 +1,38 @@
 <%- include('../partials/header.ejs') %>
 <%- include('../partials/nav.ejs') %>
+<% let bookVotes={}, notes={}, currentRead=0;
+    vote.forEach((vote) => {
+      let id = vote.book.id;
+      if (!bookVotes[id]) bookVotes[id] = 0;
+        bookVotes[id] += 1;
+    });
+    note.forEach((item) => {
+      let id = item.book.id;
+      if (!notes[id]) notes[id] = 0;
+      notes[item.book.id] += 1;
+    });
+%>
+<% let mappedList = list.books.map((item) => item.id)
+  if (list.books.length) {
+    list.booksRead.forEach((item) => {
+      if (typeof userData.reading != "undefined") {
+        currentRead = item.id === userData.reading.id ? 1 : 0
+      }
+      let idx = mappedList.indexOf(item.id);
+        if(idx !== -1) {
+          mappedList.splice(idx,1);
+          list.books.splice(idx,1);
+        }
+    });
+    if (typeof userData.reading != "undefined") {
+      let idx = mappedList.indexOf(userData.reading.id);
+      if(idx !== -1) {
+        mappedList.splice(idx,1);
+        list.books.splice(idx,1);
+      }
+    }
+%>
+
 <div class="content">
   <div class="row align-items-center">
     <% if(userData.photo) { %>
@@ -20,7 +53,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-body" aria-current="page" href="/notes"><span class="fas fa-note-sticky"></span> Notes</a>
+            <a class="nav-link text-body" aria-current="page" href="/users/<%= userData.id %>/notes"><span class="fas fa-note-sticky"></span> Notes</a>
           </li>
           <% if(user && user.id === userData.id) { %>
           <li class="nav-item">
@@ -30,7 +63,7 @@
         </ul>
       </div>
     </div>
-    <% if(userData.reading) { %>
+    <% if(userData.reading && !currentRead) { %>
     <div class="col-sm-6">
       <h5 class="pt-4 currently-reading">Currently Reading</h5>
       <div class="card mb-3">
@@ -41,7 +74,16 @@
           <div class="col-sm-8">
             <div class="card-body">
               <h5 class="card-title"><a href="/books/<%= userData.reading.slug %>" title="<%= userData.reading.name %>" class="card-title"><%= userData.reading.name %></a></h5>
-              <p class="card-text"><small class="text-body-secondary book-author"><%= userData.reading.author %></small></p>
+              <p class="card-text">
+                <small class="text-body-secondary book-author"><%= userData.reading.author %></small>
+                <% if(user && list.user.id === user.id) { %>
+                  <form action="/lists/<%= list.id %>?_method=PUT" method="POST" class="list-book-action">
+                    <input name="booksRead" type="hidden" value="<%= userData.reading.id %>" />
+                    <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-book"></span> Mark as Read</button>
+                  </form>
+                <% } %>
+                <% if(bookVotes[userData.reading.id]) { %><div><p class="mt-4 fw-bold badge text-bg-secondary"><%= bookVotes[userData.reading.id] %></p> <span class="fas fa-thumbs-up"></span></div><% } %>
+              </p>
             </div>
           </div>
         </div>
@@ -61,35 +103,6 @@
             <a class="nav-link text-body" id="read-books-btn">Read</a>
           </li>
         </ul>
-        <% let bookVotes={}, notes={};
-           vote.forEach((vote) => {
-              let id = vote.book.id;
-              if (!bookVotes[id]) bookVotes[id] = 0;
-              bookVotes[id] += 1;
-            });
-            note.forEach((item) => {
-              if (!notes[item.book.id]) notes[item.book.id] = 0;
-              notes[item.book.id] += 1;
-            });
-        %>
-        <% let mappedList = list.books.map((item) => item.id)
-          if (list.books.length) {
-            list.booksRead.forEach((item) => {
-              let idx = mappedList.indexOf(item.id);
-              if(idx !== -1) {
-                mappedList.splice(idx,1);
-                list.books.splice(idx,1);
-              }
-            });
-            if (typeof userData.reading != "undefined") {
-              let idx = mappedList.indexOf(userData.reading.id);
-              if(idx !== -1) {
-                mappedList.splice(idx,1);
-                list.books.splice(idx,1);
-              }
-            }
-          %>
-
         <div class="list-group" id="to-read-books-view">
           <% list.books.forEach((item) => {%>
           <a href="/books/<%= item.slug %>" class="list-group-item list-group-item-action book-list-item" aria-current="true">
@@ -113,13 +126,18 @@
             <p class="mb-1 book-author"><%= item.author %></p>
             <p class="mb-1">
               <% if(user && list.user.id === user.id) {%>
+              <form action="/users/<%= user.id %>?_method=PUT" method="POST" class="list-book-action">
+                <input name="reading" type="hidden" value="<%= item.id %>" />
+                <input name="readingProgress" type="hidden" value=0 />
+                <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-book-open-reader"></span> Start Reading</button>
+              </form>
               <form action="/lists/<%= list.id %>?_method=PUT" method="POST" class="list-book-action">
                 <input name="booksRead" type="hidden" value="<%= item.id %>" />
                 <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-book"></span> Mark as Read</button>
               </form>
               <form action="/lists/<%= list.id %>/book?_method=DELETE" method="POST" class="list-book-action">
                 <input name="book" type="hidden" value="<%= item.id %>" />
-                <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-trash-can"></span> Remove from List</button>
+                <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-trash-can"></span> Remove</button>
               </form>
               <% } %>
             </p>

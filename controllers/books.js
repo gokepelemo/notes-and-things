@@ -83,9 +83,11 @@ async function index(req, res, next) {
 }
 
 async function create(req, res, next) {
+  // prevent duplicate books froom being created
+  if (await Book.findOne({ name: req.body.name })) return;
   req.body.slug = generateSlug(req.body.name);
-  if (await Book.findOne({ slug: req.body.slug }))
-    req.body.slug += `-${Math.ceil(Math.random() * 50)}`;
+  // prevent multiple books from having the same slug
+  if (await Book.findOne({ slug: req.body.slug })) req.body.slug += `-${Math.ceil(Math.random() * 50)}`;
   try {
     const newBook = await Book.create(req.body);
     res.redirect(`/books/${newBook.slug}`);
@@ -148,19 +150,30 @@ async function editBook(req, res, next) {
   }
 }
 
+function startSearch(req, res, next) {
+  // take post requests from forms and pass them to the search route
+  res.redirect(`/books/new/search/${req.body.search}`);
+  return;
+}
+
 async function search(req, res, next) {
-  await fetch(
-    `https://www.googleapis.com/books/v1/volumes?q=${req.params.query}&key=${process.env.GOOGLE_BOOKS_API_KEY}`
-  )
-    .then((res) => res.json())
-    .then((resultsData) => {
-      res.render("books/newFromSearch", {
-        app: Defaults,
-        title: `Add Books like ${req.params.query}`,
-        results: resultsData.items,
-        query: req.params.query,
+  // execute searches with the google books api
+  try {
+    await fetch(
+      `https://www.googleapis.com/books/v1/volumes?q=${req.params.query}&key=${process.env.GOOGLE_BOOKS_API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((resultsData) => {
+        res.render("books/newFromSearch", {
+          app: Defaults,
+          title: `Add Books like ${req.params.query}`,
+          results: resultsData.items,
+          query: req.params.query,
+        });
       });
-    });
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 module.exports = {
@@ -172,4 +185,5 @@ module.exports = {
   new: newBook,
   edit: editBook,
   search,
+  startSearch,
 };

@@ -55,7 +55,6 @@ async function show(req, res, next) {
       userData: userData,
       list: readingList,
       vote: vote,
-      book: book,
       note: noteData,
     });
   } catch (err) {
@@ -68,6 +67,7 @@ async function update(req, res, next) {
   try {
     let newList,
       userData = await User.findById(req.params.id).exec();
+    // a user should have a reading list by default. if they don't have one, create one.
     if (!userData.readingList) {
       newList = await List.create({
         name: `${req.body.name}'s Reading List`,
@@ -77,16 +77,13 @@ async function update(req, res, next) {
       });
       userData.readingList = newList.id;
     }
-    userData.name = req.body.name;
-    userData.email = req.body.email;
-    userData.photo = req.body.photo;
-    if (req.body.role) {
-      userData.role = req.body.role;
-    } else {
-      userData.role = "member";
-    }
-    userData.reading = req.body.reading;
-    userData.readingProgress = req.body.readingProgress;
+    // validation of the form data so that we don't make an existing attribute undefined
+    if (req.body.name) userData.name = req.body.name;
+    if (req.body.email) userData.email = req.body.email;
+    if (req.body.photo) userData.photo = req.body.photo;
+    if (req.body.role) userData.role = req.body.role;
+    if (req.body.reading) userData.reading = req.body.reading;
+    if (req.body.readingProgress) userData.readingProgress = req.body.readingProgress;
     await userData.save();
     res.redirect(`/profile/${userData.id}`);
   } catch (err) {
