@@ -204,7 +204,8 @@ a.card-title {
 
 .add-to-list,
 .add-to-list-action,
-.item-title {
+.item-title,
+.note-item {
   cursor: pointer;
 }
 

@@ -16,7 +16,7 @@ async function show(req, res, next) {
       .exec();
     res.render("notes/show", {
       app: Defaults,
-      title: `Note`,
+      title: `Note from ${noteData.user.name} on ${noteData.book.name}`,
       noteData: noteData,
     });
   } catch (err) {

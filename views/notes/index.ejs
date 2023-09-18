@@ -7,7 +7,7 @@
       <% if(note.length) { %>
       <ul class="list-group">
         <% note.forEach((item) => { %>
-        <% if(user && user.role === "admin") { %>
+        <% if(user && (user.role === "admin" || user.id === item.user.id)) { %>
         <li class="list-group-item">
           <form method="POST" action="/notes/<%= item.id %>?_method=DELETE" class="frm-action">
             <button type="submit" class="btn btn-light btn-action">X</button>
@@ -19,14 +19,14 @@
           <p class="mb-1">
             <a href="/profile/<%= item.user.id %>" title="<%= item.user.name %>"><span class="badge rounded-pill text-bg-secondary note-author" data-author="<%= item.user.id %>"><%= item.user.name %></span></a>
             <% if(item.list) {%>
-              <a href="/lists/<%= item.list.id %>" title="<%= item.list.name %>"><span class="badge rounded-pill text-bg-secondary note-list" data-list="<%= item.list.id %>"><%= item.list.name %></span></a>
+              <a href="/lists/<%= item.list.id %>" title="<%= item.list.name %>"><span class="badge rounded-pill text-bg-secondary note-list" data-list="<%= item.list.id %>">List: <%= item.list.name %></span></a>
             <% } %>
-              <a href="/books/<%= item.book.id %>" title="<%= item.book.name %>"><span class="badge rounded-pill text-bg-secondary note-content" data-book="<%= item.book.id %>"><%= item.book.name %></span></a>
+              <a href="/books/<%= item.book.id %>" title="<%= item.book.name %>"><span class="badge rounded-pill text-bg-secondary note-content" data-book="<%= item.book.id %>">Book: <%= item.book.name %></span></a>
           </p>
         </li>
         <% } else if (user && user.role === "member" && item.user.id === user.id) {%>
         <li class="list-group-item">
-        <% if(user && user.role === "admin") { %>
+        <% if(user && (user.role === "admin" || item.user.id === user.id)) { %>
           <form method="POST" action="/notes/<%= item.id %>?_method=DELETE" class="frm-action">
             <button type="submit" class="btn btn-light btn-action">X</button>
           </form>
@@ -38,9 +38,9 @@
           <p class="mb-1">
             <a href="/profile/<%= item.user.id %>" title="<%= item.user.name %>"><span class="badge rounded-pill text-bg-secondary note-author" data-author="<%= item.user.id %>"><%= item.user.name %></span></a>
             <% if(item.list) {%>
-              <a href="/lists/<%= item.list.id %>" title="<%= item.list.name %>"><span class="badge rounded-pill text-bg-secondary note-list" data-list="<%= item.list.id %>"><%= item.list.name %></span></a>
+              <a href="/lists/<%= item.list.id %>" title="<%= item.list.name %>"><span class="badge rounded-pill text-bg-secondary note-list" data-list="<%= item.list.id %>">List: <%= item.list.name %></span></a>
             <% } %>
-              <a href="/books/<%= item.book.id %>" title="<%= item.book.name %>"><span class="badge rounded-pill text-bg-secondary note-content" data-book="<%= item.book.id %>"><%= item.book.name %></span></a>
+              <a href="/books/<%= item.book.id %>" title="<%= item.book.name %>"><span class="badge rounded-pill text-bg-secondary note-content" data-book="<%= item.book.id %>">Book: <%= item.book.name %></span></a>
           </p>
         </li>
         <% } %>

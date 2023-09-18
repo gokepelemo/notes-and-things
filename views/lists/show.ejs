@@ -93,7 +93,7 @@
             </form>
             <form action="/lists/<%= list.id %>/book?_method=DELETE" method="POST" class="list-book-action">
               <input name="book" type="hidden" value="<%= item.id %>" />
-              <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-trash-can"></span> Remove from List</button>
+              <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-trash-can"></span> Remove</button>
             </form>
             <% } %>
           </p>
