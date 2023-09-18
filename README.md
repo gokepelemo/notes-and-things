@@ -1,5 +1,7 @@
 # Notes and Things
-Lists of books and notes to share with your community
+Lists of books and notes to share with your community. Notes and Things enables you to create a list of published books and track your progress reading those books with friends, communities and book clubs. You and any member can like and add notes to books, then share the book or reading list on social media. I anticipate that people can get really creative with the notes.
+
+You get one reading list on your profile by default, then you can add more reading lists for any purpose.
 
 ## Technologies Used
 1. HTML
