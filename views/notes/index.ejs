@@ -17,10 +17,11 @@
           </a>
           <p class="mb-1"><%= item.content %></p>
           <p class="mb-1">
-            <span class="badge rounded-pill text-bg-secondary note-author" data-author="<%= item.user.id %>"><%= item.user.name %></span>
+            <a href="/profile/<%= item.user.id %>" title="<%= item.user.name %>"><span class="badge rounded-pill text-bg-secondary note-author" data-author="<%= item.user.id %>"><%= item.user.name %></span></a>
             <% if(item.list) {%>
-              <span class="badge rounded-pill text-bg-secondary note-list" data-list="<%= item.list.id %>"><%= item.list.name %></span>
+              <a href="/lists/<%= item.list.id %>" title="<%= item.list.name %>"><span class="badge rounded-pill text-bg-secondary note-list" data-list="<%= item.list.id %>"><%= item.list.name %></span></a>
             <% } %>
+              <a href="/books/<%= item.book.id %>" title="<%= item.book.name %>"><span class="badge rounded-pill text-bg-secondary note-content" data-book="<%= item.book.id %>"><%= item.book.name %></span></a>
           </p>
         </li>
         <% } else if (user && user.role === "member" && item.user.id === user.id) {%>
@@ -35,10 +36,11 @@
           </a>
           <p class="mb-1"><%= item.content %></p>
           <p class="mb-1">
-            <span class="badge rounded-pill text-bg-secondary note-author" data-author="<%= item.user.id %>"><%= item.user.name %></span>
+            <a href="/profile/<%= item.user.id %>" title="<%= item.user.name %>"><span class="badge rounded-pill text-bg-secondary note-author" data-author="<%= item.user.id %>"><%= item.user.name %></span></a>
             <% if(item.list) {%>
-              <span class="badge rounded-pill text-bg-secondary note-list" data-list="<%= item.list.id %>"><%= item.list.name %></span>
+              <a href="/lists/<%= item.list.id %>" title="<%= item.list.name %>"><span class="badge rounded-pill text-bg-secondary note-list" data-list="<%= item.list.id %>"><%= item.list.name %></span></a>
             <% } %>
+              <a href="/books/<%= item.book.id %>" title="<%= item.book.name %>"><span class="badge rounded-pill text-bg-secondary note-content" data-book="<%= item.book.id %>"><%= item.book.name %></span></a>
           </p>
         </li>
         <% } %>

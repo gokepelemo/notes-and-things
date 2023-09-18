@@ -59,7 +59,7 @@
         <div class="list-group" id="notes-view">
           <% if(note.length) {
           note.forEach((item) => {%>
-          <a class="list-group-item list-group-item-action note-item" aria-current="true">
+          <a href="/notes/<%= item.id %>" class="list-group-item list-group-item-action note-item" aria-current="true">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1"><%= item.title %></h5>
               <div class="action-buttons">
@@ -86,7 +86,7 @@
       <div class="list-group" id="book-list-view">
         <% if(list.length) {
           list.forEach((item) => { %>
-        <a class="list-group-item list-group-item-action book-list-item" aria-current="true" href="/lists/<%= item.id %>">
+        <a href="/lists/<%= item.id %>" class="list-group-item list-group-item-action book-list-item" aria-current="true" href="/lists/<%= item.id %>">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1"><%= item.name %></h5>
           </div>

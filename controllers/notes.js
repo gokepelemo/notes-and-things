@@ -9,11 +9,19 @@ const User = require("../models/user");
 
 async function show(req, res, next) {
   try {
-    let noteData = await Note.findById(req.params.id).exec();
-    res.render('notes/show', {app: Defaults, title: `Note`, noteData: noteData,})
+    let noteData = await Note.findById(req.params.id)
+      .populate("user")
+      .populate("book")
+      .populate("list")
+      .exec();
+    res.render("notes/show", {
+      app: Defaults,
+      title: `Note`,
+      noteData: noteData,
+    });
   } catch (err) {
-    console.error(err)
-  } 
+    console.error(err);
+  }
 }
 
 function editNote(req, res, next) {
@@ -23,20 +31,29 @@ function editNote(req, res, next) {
 async function index(req, res, next) {
   let notes, notesTitle, type, userData;
   try {
-  if (req.params.userId) {
-    type = `user`;
-    notes = await Note.find({ user: req.params.userId }).populate("user").populate("list");
-    userData = await User.findById(req.params.userId);
-    notesTitle = `Notes from ${userData.name}`;
-  } else if (req.params.listId) {
-    type = `list`;
-    notes = await Note.find({ list: req.params.listId }).populate("user").populate("list");
-    notesTitle = `Notes from List`;
-  } else {
-    type = `all`;
-    notes = await Note.find({}).populate("user").populate("list");
-    notesTitle = `All Notes`;
-  }
+    if (req.params.userId) {
+      type = `user`;
+      notes = await Note.find({ user: req.params.userId })
+        .populate("user")
+        .populate("list")
+        .populate("book");
+      userData = await User.findById(req.params.userId);
+      notesTitle = `Notes from ${userData.name}`;
+    } else if (req.params.listId) {
+      type = `list`;
+      notes = await Note.find({ list: req.params.listId })
+        .populate("user")
+        .populate("list")
+        .populate("book");
+      notesTitle = `Notes from List`;
+    } else {
+      type = `all`;
+      notes = await Note.find({})
+        .populate("user")
+        .populate("list")
+        .populate("book");
+      notesTitle = `All Notes`;
+    }
     res.render("notes/index", {
       app: Defaults,
       title: notesTitle,

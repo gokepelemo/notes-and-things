@@ -2,10 +2,18 @@
 <%- include('../partials/nav.ejs') %>
 <div class="container container-fluid content">
   <div class="row">
-    <div class="col">
-      <h3 class="lead content-lead"><%= noteData.title %></h3>
-      <p><%= noteData.content %></p>
+    <div class="col pe-5">
+      <div class="card">
+        <div class="card-header">
+          <h3><%= noteData.title %></h3>
+          <span class="note-author"><%= noteData.user.name %></span>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><%= noteData.content %></p>
+        </div>
+      </div>
     </div>
   </div>
-  <a href="/notes" class="app-footer-link btn btn-secondary btn-sm"><span class="fas fa-caret-left"></span> Back to Notes</a>
-  <%- include('../partials/footer.ejs') %>
+  <a href="/books/<%= noteData.book.slug %>" title="<%= noteData.book.name %>" class="app-footer-link btn btn-secondary btn-sm"><span class="fas fa-caret-left"></span> Back to <%= noteData.book.name %></a>
+</div>
+<%- include('../partials/footer.ejs') %>

@@ -5,10 +5,10 @@ const ensureLoggedIn = require('../config/ensureLoggedIn');
 
 // custom routes to show notes for specific lists, books, and users
 router.get('/users/:userId/notes', ensureLoggedIn, notesCtrl.index);
-router.get('/lists/:listId/notes', notesCtrl.index);
+router.get('/lists/:listId/notes', ensureLoggedIn, notesCtrl.index);
 
 // custom route to show a specific note on a book
-router.get('/notes/:id', ensureLoggedIn, notesCtrl.show);
+router.get('/notes/:id', notesCtrl.show);
 
 router.get('/books/:id/notes/new', ensureLoggedIn, notesCtrl.new);
 router.get('/notes', ensureLoggedIn, notesCtrl.index);
