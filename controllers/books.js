@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-import fetch from 'node-fetch';
+const fetch = 'node-fetch-commonjs';
 
 const Book = require("../models/book");
 const Vote = require("../models/vote");
