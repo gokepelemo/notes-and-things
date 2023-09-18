@@ -1,5 +1,3 @@
-// todo: add to a reading list from the book view
-
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
