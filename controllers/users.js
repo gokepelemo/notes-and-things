@@ -13,14 +13,6 @@ function extractId(id) {
   return id.toString().replace('new ObjectId("', "").replace('")', "");
 }
 
-function index(req, res, next) {
-  return;
-}
-
-function deleteUser(req, res, next) {
-  return;
-}
-
 async function show(req, res, next) {
   let readingList = [],
     vote = [];
@@ -112,8 +104,6 @@ async function editUser(req, res, next) {
 
 module.exports = {
   show,
-  index,
   update,
-  delete: deleteUser,
   edit: editUser,
 };

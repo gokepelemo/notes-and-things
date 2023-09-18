@@ -24,10 +24,6 @@ async function show(req, res, next) {
   }
 }
 
-function editNote(req, res, next) {
-  return;
-}
-
 async function index(req, res, next) {
   let notes, notesTitle, type, userData;
   try {
@@ -77,10 +73,6 @@ async function create(req, res, next) {
   }
 }
 
-function update(req, res, next) {
-  return;
-}
-
 async function deleteNote(req, res, next) {
   try {
     let note = await Note.findByIdAndDelete(req.params.id);
@@ -114,8 +106,6 @@ module.exports = {
   show,
   index,
   create,
-  update,
   delete: deleteNote,
   new: newNote,
-  edit: editNote,
 };

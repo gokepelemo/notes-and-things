@@ -14,7 +14,5 @@ router.get('/books/:id/notes/new', ensureLoggedIn, notesCtrl.new);
 router.get('/notes', ensureLoggedIn, notesCtrl.index);
 router.post('/notes', ensureLoggedIn, notesCtrl.create);
 router.delete('/notes/:id', ensureLoggedIn, notesCtrl.delete);
-router.put('/notes/:id', ensureLoggedIn, notesCtrl.update)
-router.get('/notes/:id/edit', ensureLoggedIn, notesCtrl.edit);
 
 module.exports = router;
