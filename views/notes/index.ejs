@@ -25,9 +25,11 @@
         </li>
         <% } else if (user && user.role === "member" && item.user.id === user.id) {%>
         <li class="list-group-item">
+        <% if(user && user.role === "admin") { %>
           <form method="POST" action="/notes/<%= item.id %>?_method=DELETE" class="frm-action">
             <button type="submit" class="btn btn-light btn-action">X</button>
           </form>
+          <% } %>
           <a href="/notes/<%= item.id %>" class="index-list-item">
             <h5><%= item.title %></h5>
           </a>

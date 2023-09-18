@@ -8,7 +8,7 @@ router.get('/users/:userId/notes', ensureLoggedIn, notesCtrl.index);
 router.get('/lists/:listId/notes', notesCtrl.index);
 
 // custom route to show a specific note on a book
-router.get('/books/:bookId/notes/:noteId', ensureLoggedIn, notesCtrl.show);
+router.get('/notes/:id', ensureLoggedIn, notesCtrl.show);
 
 router.get('/books/:id/notes/new', ensureLoggedIn, notesCtrl.new);
 router.get('/notes', ensureLoggedIn, notesCtrl.index);

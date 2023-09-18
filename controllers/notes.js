@@ -7,8 +7,13 @@ const Book = require("../models/book");
 const Vote = require("../models/vote");
 const User = require("../models/user");
 
-function show(req, res, next) {
-  return;
+async function show(req, res, next) {
+  try {
+    let noteData = await Note.findById(req.params.id).exec();
+    res.render('notes/show', {app: Defaults, title: `Note`, noteData: noteData,})
+  } catch (err) {
+    console.error(err)
+  } 
 }
 
 function editNote(req, res, next) {
@@ -17,6 +22,7 @@ function editNote(req, res, next) {
 
 async function index(req, res, next) {
   let notes, notesTitle, type, userData;
+  try {
   if (req.params.userId) {
     type = `user`;
     notes = await Note.find({ user: req.params.userId }).populate("user").populate("list");
@@ -31,7 +37,6 @@ async function index(req, res, next) {
     notes = await Note.find({}).populate("user").populate("list");
     notesTitle = `All Notes`;
   }
-  try {
     res.render("notes/index", {
       app: Defaults,
       title: notesTitle,
