@@ -141,7 +141,7 @@ h1.title {
   font: 500 3rem "JetBrains Mono", Arial, sans-serif;
 }
 
-a.title {
+a.title,a.card-title {
   text-decoration: none;
 }
 
@@ -185,8 +185,15 @@ a.title {
 }
 
 .img-list {
-  padding: 0 1rem;
+  padding: 1.5rem;
   border: none;
+}
+
+.profile-photo {
+  border: 1px solid var(--primary);
+  border-radius: 50%;
+  width: 12vmin;
+  min-width: 150px;
 }
 
 .entity-actions .nav-link {
@@ -265,7 +272,7 @@ a.title {
     justify-content: center;
   }
   .currently-reading,
-  p.new-note {
+  p.new-note,.card-body {
     text-align: center;
   }
 }

@@ -16,15 +16,13 @@
                 <form action="/books/<%= item.id %>?_method=DELETE" method="POST" class="frm-action">
                   <button type="submit" class="btn btn-light btn-action">X</button>
                 </form>
-                <button class="edit btn btn-light btn-action">✏️</button>
+                <button class="edit-book btn btn-light btn-action">✏️</button>
               </div>
               <% } %>
             </div>
           </div>
           <p class="mb-1 book-author"><%= item.author %></p>
           <p class="mb-1">
-            <span class="badge rounded-pill text-bg-secondary">On X Lists</span>
-            <span class="badge rounded-pill text-bg-secondary">In Y Notes</span>
           </p>
         </a>
         <% }) %>

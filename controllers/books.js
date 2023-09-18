@@ -148,6 +148,21 @@ async function editBook(req, res, next) {
   }
 }
 
+async function search(req, res, next) {
+  await fetch(
+    `https://www.googleapis.com/books/v1/volumes?q=${req.params.query}&key=${process.env.GOOGLE_BOOKS_API_KEY}`
+  )
+    .then((res) => res.json())
+    .then((resultsData) => {
+      res.render("books/newFromSearch", {
+        app: Defaults,
+        title: `Add Books like ${req.params.query}`,
+        results: resultsData.items,
+        query: req.params.query,
+      });
+    });
+}
+
 module.exports = {
   show,
   index,
@@ -156,4 +171,5 @@ module.exports = {
   delete: deleteBook,
   new: newBook,
   edit: editBook,
+  search,
 };

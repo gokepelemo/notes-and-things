@@ -1,0 +1,48 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/nav.ejs') %>
+<div class="content">
+  <h3 class="lead content-lead mb-4"><%= title %></h3>
+  <div class="form-group book-search mb-5">
+    <form id="book-search">
+      <input type="text" name="search" class="form-control" value="<%= query %>" />
+      <button id="search" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+  <div class="list-group" id="search-results">
+    <% results.forEach((item) => {%>
+    <a href="<%= item.volumeInfo.previewLink %>" class="list-group-item list-group-item-action book-list-item" aria-current="true" property="url" target="_blank">
+      <div class="d-flex w-100 justify-content-between" typeof="Book">
+        <h5 class="item-title mb-1" property="name"><%= item.volumeInfo.title %></h5>
+      </div>
+      <p class="mb-1 book-author" property="author">
+      <% if(typeof item.volumeInfo.authors != "undefined") {%>
+      <% item.volumeInfo.authors.forEach((author, index) => { 
+        %>
+        <span><%= item.volumeInfo.authors.length > 1 && index === item.volumeInfo.authors.length-1 ? `& ${author}` : `${author}` %></span>
+      <% }) %>
+      <% } %>
+      </p>
+      <p class="mb-1">
+      <%= item.volumeInfo.description %>
+      </p>
+      <p class="mb-1">
+        <% if(user) {%>
+        <form action="/books/" method="POST" class="list-book-action">
+          <input name="name" type="hidden" value="<%= item.volumeInfo.title %>" />
+          <input name="author" type="hidden" value="<%= typeof item.volumeInfo.authors != "undefined" ? item.volumeInfo.authors[0] : "" %>" />
+          <input name="description" type="hidden" value="<%= item.volumeInfo.description %>" />
+          <input name="user" type="hidden" value="<%= user.id %>" />
+          <input name="buy" type="hidden" value="<%= item.saleInfo.buyLink %>" />
+          <% if(typeof item.volumeInfo.imageLinks != "undefined") { %>
+            <input name="photo" type="hidden" value="<%= item.volumeInfo.imageLinks.thumbnail %>" />
+          <% } %>
+          <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-plus"></span> Add to Notes and Things</button>
+        </form>
+        <% } %>
+      </p>
+    </a>
+    <% }) %>
+  </div>
+</div>
+</div>
+<%- include('../partials/footer.ejs') %>

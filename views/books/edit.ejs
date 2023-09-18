@@ -12,8 +12,10 @@
       <input type="text" name="author" value="<%= book.author %>" class="form-control" />
       <label for="book-image">Image URL</label>
       <input type="text" name="photo" value="<%= book.photo %>" class="form-control" />
-      <label for="book-image">ISBN</label>
+      <label for="book-isbn">ISBN</label>
       <input type="text" name="isbn" class="form-control" />
+      <label for="book-buy-link">Buy Link</label>
+      <input type="text" name="buy" class="form-control" value="<%= book.buy %>" />
       <button type="submit" class="btn btn-primary">Update Book</button>
     </form>
   </div>

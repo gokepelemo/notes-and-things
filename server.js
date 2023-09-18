@@ -1,5 +1,6 @@
 // todo: code google books api integration
 // todo: view notes in a book or list
+// todo: when a currently reading book is marked read, unset the currently reading attribute and add the book to the read pile
 
 const createError = require('http-errors');
 const express = require('express');

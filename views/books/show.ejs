@@ -21,11 +21,16 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-body" aria-current="page" href="#" target="_blank"><span class="fas fa-cart-shopping"></span> Buy on Amazon</a>
+            <a class="nav-link text-body" aria-current="page" href="<%= book.buy %>" target="_blank"><span class="fas fa-cart-shopping"></span> Buy</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-body" aria-current="page" href="/books/<%= book.id %>/notes/new"><span class="fas fa-plus"></span> Add a Note</a>
           </li>
+          <% if(user && user.role === "admin") {%>
+          <li class="nav-item">
+            <a class="nav-link text-body" aria-current="page" href="/books/<%= book.id %>/edit"><span class="fas fa-pencil"></span> Edit</a>
+          </li>
+          <% } %>
         </ul>
       </div>
     </div>
@@ -72,8 +77,8 @@
           <% }); %>
         </div>
         <%} else {%>
-        <p class="no-items">There are no notes added to this book.</p>
-        <a href="/books/<%= book.id %>/notes/new"><button class="btn btn-secondary">Add Notes</button></a>
+        <p>There are no notes added to this book.</p>
+        <a href="/books/<%= book.id %>/notes/new"><button class="btn btn-sm btn-secondary">Add a Note</button></a>
         <% } %>
       </div>
       <div class="list-group" id="book-list-view">
@@ -87,8 +92,9 @@
         <% }) %>
       </div>
       <% } else { %>
-      <p class="no-items">This book is not added to any lists.</p>
-      <a href="/books/<%= book.id %>/notes/new"><button class="btn btn-primary">Add to List</button></a>
+      <p>This book is not added to any reading lists.</p>
+      <% // todo: reusable add book to reading list button %>
+      <a href="#"><button class="btn btn-primary btn-sm">Add to List</button></a>
       <% } %>
     </div>
     <% } else {%>

@@ -4,7 +4,7 @@
   <div class="row align-items-center">
     <% if(userData.photo) { %>
     <div class="col-md-2">
-      <img src="<%= userData.photo %>" class="img-list" />
+      <img src="<%= userData.photo %>" class="profile-photo" />
     </div>
     <% } %>
     <div class="col<%= userData.photo ? ' ps-4' : '' %>">
@@ -40,7 +40,7 @@
           </div>
           <div class="col-sm-8">
             <div class="card-body">
-              <h5 class="card-title"><%= userData.reading.name %></h5>
+              <h5 class="card-title"><a href="/books/<%= userData.reading.slug %>" title="<%= userData.reading.name %>" class="card-title"><%= userData.reading.name %></a></h5>
               <p class="card-text"><small class="text-body-secondary book-author"><%= userData.reading.author %></small></p>
             </div>
           </div>
@@ -127,7 +127,7 @@
           <% }) %>
           <% } else { %>
           <p>There are no books in this list.</p>
-          <a href="/lists/<%= list.id %>/edit"><button class="btn btn-primary">Add Books</button></a>
+          <a href="/lists/<%= list.id %>/edit"><button class="btn btn-sm btn-primary">Add Books</button></a>
           <% } %>
         </div>
         <div class="list-group" id="read-books-view">

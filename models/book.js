@@ -11,6 +11,9 @@ const bookSchema = new Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String
+    },
     photo: {
       type: String,
     },
@@ -18,6 +21,9 @@ const bookSchema = new Schema(
       type: String,
     },
     slug: {
+      type: String,
+    },
+    buy: {
       type: String,
     },
     user: {
