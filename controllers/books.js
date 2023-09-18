@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const fetch = 'node-fetch';
 
 const Book = require("../models/book");
 const Vote = require("../models/vote");
