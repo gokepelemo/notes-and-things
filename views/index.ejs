@@ -19,7 +19,7 @@
                 <ul class="dropdown-menu">
                   <% lists.forEach((list) => { %>
                   <% if(list.user.id == user.id) {%>
-                    <span class="dropdown-item add-to-list-action" href="#" data-booktitle="<%= item.name %>" data-list="<%= list.id %>" data-book="<%= item.id %>" data-slug="<%= item.slug %>"><%= list.name === user.name ? `Your Reading List` : list.name %></span>
+                    <span class="dropdown-item add-to-list-action" href="#" data-booktitle="<%= item.name %>" data-list="<%= list.id %>" data-book="<%= item.id %>" data-slug="<%= item.slug %>"><%= `${list.name}'s Reading List` === user.name ? `Your Reading List` : list.name %></span>
                   <% }}); %>
                 </ul>
               </div>
@@ -39,8 +39,8 @@
           </div>
           <p class="mb-1 book-author"><%= item.author %></p>
           <p class="mb-1">
-            <% if(booklists[item.id]) { %><span class="badge rounded-pill text-bg-secondary">In <%= booklists[item.id] ? booklists[item.id] : 0 %> List<%= booklists[item.id] > 1 ? "s" : "" %> </span><% } %>
-            <% if(booknotes[item.id]) { %><span class="badge rounded-pill text-bg-secondary">In <%= booknotes[item.id] ? booknotes[item.id] : 0 %> Note<%= booklists[item.id] > 1 ? "s" : "" %></span><% } %>
+            <% if(booklists[item.id]) { %><span class="badge rounded-pill text-bg-secondary">In <%= booklists[item.id] ? booklists[item.id] : 0 %> List<%= booklists[item.id] ? "s" : "" %> </span><% } %>
+            <% if(booknotes[item.id]) { %><span class="badge rounded-pill text-bg-secondary">In <%= booknotes[item.id] ? booknotes[item.id] : 0 %> Note<%= booklists[item.id] ? "s" : "" %></span><% } %>
           </p>
         </a>
         <% }) %>
