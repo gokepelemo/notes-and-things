@@ -1,5 +1,6 @@
 # Notes and Things
 Lists of books and notes to share with your community
+
 ## Technologies Used
 1. HTML
 2. CSS
