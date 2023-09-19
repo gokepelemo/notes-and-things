@@ -39,3 +39,7 @@ Deployed on [Render.com](https://notes-and-things.onrender.com/).
 
 ## Other Features
 1. Create more reading lists for your communities, groups, and book clubs by creating a new reading list under Actions. The additional reading lists will have their own views.
+
+## Future Updates
+[Trello Board](https://trello.com/b/y3sjYI5x/notes-and-things-a-portal-for-book-clubs)
+
