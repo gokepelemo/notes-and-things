@@ -36,9 +36,9 @@
       </div>
     </nav>
     <div class="content">
-    <h3 class="lead content-lead mb-4"><%= error.status ? error.status : "Oops! Something isn't right." %></h3>
-    <p><%= error.status === 404 ? "This path doesn't exist." : "You need to be logged in to view this, or something is wrong on the application." %></p>
-    <%= error.message %>
+      <h3 class="lead content-lead mb-4"><%= error.status ? error.status : "Oops! Something isn't right." %></h3>
+      <p><%= error.status === 404 ? "This path doesn't exist." : "You need to be logged in to view this, or something is wrong on the application." %></p>
+      <%= error.message %>
     </div>
   </main>
 </body>

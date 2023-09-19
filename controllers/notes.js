@@ -41,7 +41,8 @@ async function index(req, res, next) {
         .populate("user")
         .populate("list")
         .populate("book");
-      notesTitle = `Notes from List`;
+      notesTitle = notes.length > 0 ? `Notes from ${notes[0].list.name}`: `Notes from List`
+      console.log(notes)
     } else {
       type = `all`;
       notes = await Note.find({})

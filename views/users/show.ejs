@@ -11,8 +11,7 @@
       if (!notes[id]) notes[id] = 0;
       notes[item.book.id] += 1;
     });
-%>
-<% let mappedList = list.books.map((item) => item.id)
+  let mappedList = list.books.map((item) => item.id);
   if (list.books.length) {
     list.booksRead.forEach((item) => {
       if (typeof userData.reading != "undefined") {

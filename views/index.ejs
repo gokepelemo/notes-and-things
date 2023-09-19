@@ -18,7 +18,7 @@
                 </button>
                 <ul class="dropdown-menu">
                   <% lists.filter((item) => item.user.id == user.id).forEach((list) => { %>
-                    <span class="dropdown-item add-to-list-action" href="#" data-booktitle="<%= item.name %>" data-list="<%= list.id %>" data-book="<%= item.id %>" data-slug="<%= item.slug %>"><%= `${list.name}'s Reading List` === user.name ? `Your Reading List` : list.name %></span>
+                    <span class="dropdown-item add-to-list-action" href="#" data-booktitle="<%= item.name %>" data-list="<%= list.id %>" data-book="<%= item.id %>" data-slug="<%= item.slug %>"><%= list.name %></span>
                   <% }); %>
                 </ul>
               </div>
