@@ -24,6 +24,9 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-body" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><span class="fas fa-share-nodes"></span> Add to List</a>
             <ul class="dropdown-menu">
+              <% list.map(item => item.id).forEach((item) => {
+                allLists.splice(allLists.map(item => item.id).indexOf(item),1);
+              }) %>
               <% allLists.filter((list) => list.user == user.id).forEach((list) => { %>
               <li><span class="dropdown-item add-to-list-action" href="#" data-booktitle="<%= book.name %>" data-list="<%= list.id %>" data-book="<%= book.id %>" data-slug="<%= book.slug %>"><%= list.name %></span></li>
               <% }); %>
