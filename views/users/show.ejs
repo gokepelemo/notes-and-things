@@ -144,8 +144,8 @@
           </a>
           <% }) %>
           <% } else { %>
-          <p>There are no books in this list.</p>
-          <a href="/lists/<%= list.id %>/edit"><button class="btn btn-sm btn-primary">Add Books</button></a>
+          <p>There are no books on this profile.</p>
+          <a href="/"><button class="btn btn-sm btn-secondary">Add Books</button></a>
           <% } %>
         </div>
         <div class="list-group" id="read-books-view">
@@ -182,8 +182,8 @@
           <% }) %>
           <% } else { %>
           <p class="no-items">There are no read books in this reading list.</p>
-        </div>
         <% } %>
+        </div>
       </div>
     </div>
     <%- include('../partials/footer.ejs') %>
