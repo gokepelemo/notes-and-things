@@ -1,5 +1,6 @@
 <%- include('../partials/header.ejs') %>
 <%- include('../partials/nav.ejs') %>
+<% let bookAuthor %>
 <div class="content">
   <h3 class="lead content-lead mb-4"><%= title %></h3>
   <div class="form-group book-search mb-5">
@@ -16,10 +17,11 @@
       </div>
       <p class="mb-1 book-author" property="author">
         <% if(typeof item.volumeInfo.authors != "undefined") {%>
-        <% item.volumeInfo.authors.forEach((author, index) => { 
+        <% bookAuthor = item.volumeInfo.authors.reduce((accumulator, author, index) => { 
+          return accumulator += item.volumeInfo.authors.length > 1 && index === item.volumeInfo.authors.length-1 ? `and ${author}` : item.volumeInfo.authors.length === 1 ? `${author}` : index === item.volumeInfo.authors.length-2 ? `${author} ` : `${author}, `
         %>
-        <span><%= item.volumeInfo.authors.length > 1 && index === item.volumeInfo.authors.length-1 ? `& ${author}` : `${author}` %></span>
-        <% }) %>
+        <% },"") %>
+        <span><%= bookAuthor %></span>
         <% } %>
       </p>
       <p class="mb-1">
@@ -29,7 +31,7 @@
         <% if(user) {%>
         <form action="/books/" method="POST" class="list-book-action">
           <input name="name" type="hidden" value="<%= item.volumeInfo.title %>" />
-          <input name="author" type="hidden" value="<%= typeof item.volumeInfo.authors != "undefined" ? item.volumeInfo.authors[0] : "" %>" />
+          <input name="author" type="hidden" value="<%= bookAuthor %>" />
           <input name="description" type="hidden" value="<%= item.volumeInfo.description %>" />
           <input name="user" type="hidden" value="<%= user.id %>" />
           <% if(typeof item.saleInfo.buyLink != "undefined") { %>
