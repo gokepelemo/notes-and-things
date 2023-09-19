@@ -24,7 +24,7 @@
                 </ul>
               </div>
               <% }; %>
-              <div class="btn-group">
+              <div class="btn-group btn-m">
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <span class="fas fa-share-nodes"></span> Share
                 </button>
@@ -34,7 +34,7 @@
                   <span class="dropdown-item share-pinterest" data-link="<%= `${app.url}/books/${item.slug}` %>" data-text="<%= `See notes and reading lists containing ${item.name} by ${item.author} on Notes and Things` %>" data-media="<%= item.photo %>"><span class="fab fa-pinterest-square"></span> Pinterest</span>
                 </ul>
               </div>
-              <button class="btn btn-secondary btn-sm notes-action" data-book="<%= item.id %>" data-slug="<%= item.slug %>"><span class="fas fa-note-sticky"></span> Notes</button>
+              <button class="btn btn-secondary btn-sm notes-action btn-m" data-book="<%= item.id %>" data-slug="<%= item.slug %>"><span class="fas fa-note-sticky"></span> Notes</button>
             </div>
           </div>
           <p class="mb-1 book-author"><%= item.author %></p>

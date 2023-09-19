@@ -272,6 +272,7 @@ a.card-title {
   }
   .action-buttons {
     min-width: 60px;
+    text-align: right;
   }
   form {
     width: 100%;
@@ -283,5 +284,8 @@ a.card-title {
   .books-nav,
   .lists-nav {
     justify-content: center;
+  }
+  .btn-m {
+    margin: 0.25rem 0;
   }
 }
