@@ -16,19 +16,29 @@
             <a class="nav-link dropdown-toggle text-body" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><span class="fas fa-share-nodes"></span> Share</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item share-x" href="#" data-link="<%= `${app.url}/books/${book.slug}` %>" data-text="<%= `See notes and reading lists containing ${book.name} by ${book.author} on Notes and Things` %>" data-media="<%= book.photo %>"><span class="fa-brands fa-x-twitter"></span> X</a></li>
-              <li><a class="dropdown-item share-facebook" href="#"  data-link="<%= `${app.url}/books/${book.slug}` %>" data-text="<%= `See notes and reading lists containing ${book.name} by ${book.author} on Notes and Things` %>" data-media="<%= book.photo %>"><span class="fab fa-facebook-square"></span> Facebook</a></li>
-              <li><a class="dropdown-item share-pinterest" href="#"  data-link="<%= `${app.url}/books/${book.slug}` %>" data-text="<%= `See notes and reading lists containing ${book.name} by ${book.author} on Notes and Things` %>" data-media="<%= book.photo %>"><span class="fab fa-pinterest-square"></span> Pinterest</a></li>
+              <li><a class="dropdown-item share-facebook" href="#" data-link="<%= `${app.url}/books/${book.slug}` %>" data-text="<%= `See notes and reading lists containing ${book.name} by ${book.author} on Notes and Things` %>" data-media="<%= book.photo %>"><span class="fab fa-facebook-square"></span> Facebook</a></li>
+              <li><a class="dropdown-item share-pinterest" href="#" data-link="<%= `${app.url}/books/${book.slug}` %>" data-text="<%= `See notes and reading lists containing ${book.name} by ${book.author} on Notes and Things` %>" data-media="<%= book.photo %>"><span class="fab fa-pinterest-square"></span> Pinterest</a></li>
             </ul>
+          </li>
+          <% if(user) {%>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-body" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><span class="fas fa-share-nodes"></span> Add to List</a>
+            <ul class="dropdown-menu">
+              <% allLists.filter((list) => list.user == user.id).forEach((list) => { %>
+              <li><span class="dropdown-item add-to-list-action" href="#" data-booktitle="<%= book.name %>" data-list="<%= list.id %>" data-book="<%= book.id %>" data-slug="<%= book.slug %>"><%= list.name %></span></li>
+              <% }); %>
+            </ul>
+          </li>
+          <% } %>
+          <li class="nav-item">
+            <a class="nav-link text-body" aria-current="page" href="/books/<%= book.id %>/notes/new"><span class="fas fa-plus"></span> Add a Note</a>
           </li>
           <% if(typeof book.buy !== "undefined") {%>
           <li class="nav-item">
             <a class="nav-link text-body" aria-current="page" href="<%= book.buy %>" target="_blank"><span class="fas fa-cart-shopping"></span> Buy</a>
           </li>
           <% } %>
-          <li class="nav-item">
-            <a class="nav-link text-body" aria-current="page" href="/books/<%= book.id %>/notes/new"><span class="fas fa-plus"></span> Add a Note</a>
-          </li>
-          <% if(user && user.role === "admin") {%>
+          <% if(user && (book.user.toString() === user._id.toString() || user.role === "admin")) {%>
           <li class="nav-item">
             <a class="nav-link text-body" aria-current="page" href="/books/<%= book.id %>/edit"><span class="fas fa-pencil"></span> Edit</a>
           </li>
@@ -39,12 +49,10 @@
     <div class="row notes-list">
       <div class="col-md-12 align-middle">
         <% let noteVotes = {};
-        vote.forEach((item) => {
-          if (item.note.id) {
+        vote.filter((item) => item.note.id).forEach((item) => {
             let id = item.note.id;
             if(!noteVotes[id]) noteVotes[id] = 0;
             noteVotes[id] += 1;
-          }
         });
        %>
         <% if(note.length || list.length) {%>
@@ -102,6 +110,6 @@
     <% } else {%>
     <p>There are no notes added to this book and it isn't on any reading lists.</p>
     <% }%>
-  <a href="<%= prev ? prev : "/books" %>" class="app-footer-link btn btn-secondary btn-sm"><span class="fas fa-caret-left"></span> Back <%= prev ? "" : "to Books" %></a>
+    <a href="<%= prev ? prev : "/books" %>" class="app-footer-link btn btn-secondary btn-sm"><span class="fas fa-caret-left"></span> Back <%= prev ? "" : "to Books" %></a>
   </div>
   <%- include('../partials/footer.ejs') %>

@@ -50,7 +50,10 @@ async function show(req, res, next) {
         book: book,
         note: note,
         vote: vote,
+        // only lists that contain this book
         list: lists,
+        // all lists
+        allLists: allLists,
         prev: req.headers.referer,
       });
     } else {

@@ -17,10 +17,9 @@
                   <span class="fas fa-list"></span> Add to List
                 </button>
                 <ul class="dropdown-menu">
-                  <% lists.forEach((list) => { %>
-                  <% if(list.user.id == user.id) {%>
+                  <% lists.filter((item) => item.user.id == user.id).forEach((list) => { %>
                     <span class="dropdown-item add-to-list-action" href="#" data-booktitle="<%= item.name %>" data-list="<%= list.id %>" data-book="<%= item.id %>" data-slug="<%= item.slug %>"><%= `${list.name}'s Reading List` === user.name ? `Your Reading List` : list.name %></span>
-                  <% }}); %>
+                  <% }); %>
                 </ul>
               </div>
               <% }; %>
