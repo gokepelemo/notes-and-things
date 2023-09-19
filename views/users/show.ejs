@@ -77,12 +77,14 @@
               <p class="card-text">
                 <small class="text-body-secondary book-author"><%= userData.reading.author %></small>
                 <% if(user && list.user.id === user.id) { %>
-                  <form action="/lists/<%= list.id %>?_method=PUT" method="POST" class="list-book-action">
-                    <input name="booksRead" type="hidden" value="<%= userData.reading.id %>" />
-                    <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-book"></span> Mark as Read</button>
-                  </form>
-                <% } %>
-                <% if(bookVotes[userData.reading.id]) { %><div><p class="mt-4 fw-bold badge text-bg-secondary"><%= bookVotes[userData.reading.id] %></p> <span class="fas fa-thumbs-up"></span></div><% } %>
+              <form action="/lists/<%= list.id %>?_method=PUT" method="POST" class="list-book-action">
+                <input name="booksRead" type="hidden" value="<%= userData.reading.id %>" />
+                <button type="submit" class="btn btn-light btn-sm"><span class="fas fa-book"></span> Mark as Read</button>
+              </form>
+              <% } %>
+              <% if(bookVotes[userData.reading.id]) { %><div>
+                <p class="mt-4 fw-bold badge text-bg-secondary"><%= bookVotes[userData.reading.id] %></p> <span class="fas fa-thumbs-up"></span>
+              </div><% } %>
               </p>
             </div>
           </div>
@@ -144,8 +146,12 @@
           </a>
           <% }) %>
           <% } else { %>
-          <p>There are no books on this profile.</p>
-          <a href="/"><button class="btn btn-sm btn-secondary">Add Books</button></a>
+          <div class="card">
+            <div class="card-body">
+              There are no books on this profile.
+              <a href="/"><button class="btn btn-sm btn-secondary">Add Books</button></a>
+            </div>
+          </div>
           <% } %>
         </div>
         <div class="list-group" id="read-books-view">
@@ -181,8 +187,8 @@
           </a>
           <% }) %>
           <% } else { %>
-          <p class="no-items">There are no read books in this reading list.</p>
-        <% } %>
+          <p class="no-items">There are no read books on this reading list.</p>
+          <% } %>
         </div>
       </div>
     </div>
