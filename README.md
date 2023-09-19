@@ -10,7 +10,7 @@ You get one reading list on your profile by default, then you can add more readi
 4. Node.js/MongoDB
 5. jQuery
 
-## Screenshots
+## Screenshots & Captures
 ### Personal reading profile
 <img src="/screenshots/personal-reading-profile.png" alt="Personal reading profile" width="500" />
 
