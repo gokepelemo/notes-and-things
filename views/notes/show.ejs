@@ -7,6 +7,18 @@
         <div class="card-header">
           <h3><%= noteData.title %></h3>
           <span class="note-author"><%= noteData.user.name %></span>
+          <div class="entity-actions">
+            <ul class="nav nav-pills books-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-body" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><span class="fas fa-share-nodes"></span> Share</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item share-x" href="#" data-link="<%= `${app.url}/notes/${noteData.id}` %>" data-text="<%= `See ${noteData.user.name}'s' note on ${noteData.book.name} by ${noteData.book.author}` %>" data-media="<%= noteData.book.photo %>"><span class="fa-brands fa-x-twitter"></span> X</a></li>
+                  <li><a class="dropdown-item share-facebook" href="#" data-link="<%= `${app.url}/notes/${noteData.id}` %>" data-text="<%= `See ${noteData.user.name}'s' note on ${noteData.book.name} by ${noteData.book.author}` %>" data-media="<%= noteData.book.photo %>"><span class="fab fa-facebook-square"></span> Facebook</a></li>
+                  <li><a class="dropdown-item share-pinterest" href="#" data-link="<%= `${app.url}/notes/${noteData.id}` %>" data-text="<%= `See ${noteData.user.name}'s' note on ${noteData.book.name} by ${noteData.book.author}` %>" data-media="<%= noteData.book.photo %>"><span class="fab fa-pinterest-square"></span> Pinterest</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="card-body">
           <p class="card-text"><%= noteData.content %></p>
