@@ -26,7 +26,7 @@ You get one reading list on your profile by default, then you can add more readi
 ### Add a book to catalog
 <img src="/screenshots/add-a-book-to-catalog.gif" alt="Add a book to catalog" width="500" />
 
-### Add new book to your reading list
+### Add a new book to your reading list
 <img src="/screenshots/add-new-book-to-reading-list.gif" alt="Add the new book to your reading List" width="500" />
 
 ## Getting Started
