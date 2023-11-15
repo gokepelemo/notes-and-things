@@ -1,6 +1,6 @@
 const siteDefaults = {
     title: `Notes and Things`,
-    url: `https://notes-and-things.onrender.com`,
+    url: `https://notesandthings.goke.tech`,
 }
 
 function getAll() {
