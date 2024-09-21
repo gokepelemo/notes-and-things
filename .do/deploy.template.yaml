@@ -2,6 +2,7 @@ spec:
   name: notes-and-things
   services:
   - build_command: npm install
+    run_command: node bin/www
     environment_slug: node-js
     git:
       branch: main
