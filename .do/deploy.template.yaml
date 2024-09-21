@@ -1,0 +1,9 @@
+spec:
+  name: notes-and-things
+  services:
+  - build_command: npm install
+    environment_slug: node-js
+    git:
+      branch: main
+      repo_clone_url: gokepelemo/biensperience
+    name: notes-and-things
