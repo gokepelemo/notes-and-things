@@ -30,7 +30,7 @@ You get one reading list on your profile by default, then you can add more readi
 <img src="/screenshots/add-new-book-to-reading-list.gif" alt="Add the new book to your reading List" width="500" />
 
 ## Getting Started
-Deployed on [Render.com](https://notes-and-things.onrender.com/).
+Deployed on the [DigitalOcean App Platform](https://www.digitalocean.com/products/app-platform).
 1. Create an account by clicking Login. A reading list should automatically be created for you after you login with a Google Account.
 2. Add a book to your reading list from the Book Catalog on the home view of the application, or use the search bar to add a new book from the ether to the book catalog if you can't find the one you want to add on there.
 3. Mark a book as Currently Reading by clicking "Start Reading" on the reading list.
